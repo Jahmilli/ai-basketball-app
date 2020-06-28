@@ -5,23 +5,25 @@ import { Button } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types";
 
-type HomeScreenNavigationProp = StackNavigationProp<
+type RecordShotSetupScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  "Login"
+  "RecordShotSetup"
 >;
-type HomeScreenProps = {
-  navigation: HomeScreenNavigationProp;
+type RecordShotSetupScreenProps = {
+  navigation: RecordShotSetupScreenNavigationProp;
 };
-const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
+const RecordShotSetupScreen: FC<RecordShotSetupScreenProps> = ({
+  navigation,
+}) => {
   const handleNavigate = () => {
     navigation.navigate("RecordShotSetup");
   };
   return (
     <View style={styles.container}>
       <Text>You've reached the home screen, wow!</Text>
-      {/* <Button title="Record Shot" onPress={handleNavigate} /> */}
+      <Button title="Record Shot" onPress={handleNavigate} />
     </View>
   );
 };
 
-export default HomeScreen;
+export default RecordShotSetupScreen;

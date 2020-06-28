@@ -7,12 +7,12 @@ import { NavigationProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types";
 
-type ProfileScreenNavigationProp = StackNavigationProp<
+type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Login"
 >;
 type LoginScreenProps = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: LoginScreenNavigationProp;
 };
 const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState({
@@ -27,12 +27,7 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
   };
 
   const handleLogin = () => {
-    try {
-      // navigation.navigate("HomeScreen");
-      navigation.navigate("Home");
-    } catch (err) {
-      alert(`An err occurred ${err.message}`);
-    }
+    navigation.navigate("Home");
   };
 
   return (
@@ -60,10 +55,5 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
     </View>
   );
 };
-
-// // @ts-ignore
-// LoginScreen.navigationOptions = {
-//   title: "LoginScreen",
-// } as NavigationStackOptions;
 
 export default LoginScreen;

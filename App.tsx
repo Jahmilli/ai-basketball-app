@@ -4,7 +4,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import useCachedResources from "./hooks/useCachedResources";
 import AppNavigator from "./AppNavigator";
-import AppNavigatorNew from "./AppNavigatorNew";
 import { useColorScheme } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -17,7 +16,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <NavigationContainer>
-          <AppNavigatorNew />
+          <AppNavigator />
         </NavigationContainer>
       </SafeAreaProvider>
     );
