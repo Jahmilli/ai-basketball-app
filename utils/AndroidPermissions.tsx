@@ -21,11 +21,8 @@ export const requestPermissions = async (
       const granted = await PermissionsAndroid.request(
         permissionRequest.permission,
         {
-          // title: "Request To Use Camera Permission",
           title: permissionRequest.title,
-          message:
-            // "Please give us access to use your camera, what can go wrong...",
-            permissionRequest.message,
+          message: permissionRequest.message,
           buttonNegative: "Hell Nah",
           buttonPositive: "Yeh mad dog",
         }

@@ -1,12 +1,11 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./RecordVideoScreenStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types";
-import { Button, Text, View, PermissionsAndroid } from "react-native";
-import {
-  requestPermissions,
-  IPermissionRequest,
-} from "../../utils/AndroidPermissions";
+import { Button, Text, View } from "react-native";
+// import { Camera } from "expo";
+import { Camera } from "expo-camera";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type RecordVideoScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -16,46 +15,72 @@ type RecordVideoScreenProps = {
   navigation: RecordVideoScreenNavigationProp;
 };
 
-const recordingPermissions: IPermissionRequest[] = [
-  {
-    title: "Record Audio Permission",
-    message: " Please give access",
-    permission: PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-  },
-  {
-    title: "Record Read External Storage Permission",
-    message: " Please give access",
-    permission: PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-  },
-  {
-    title: "Record Write External Storage Permission",
-    message: " Please give access",
-    permission: PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-  },
-];
+// const recordingPermissions: IPermissionRequest[] = [
+//   {
+//     title: "Record Audio Permission",
+//     message: " Please give access",
+//     permission: PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+//   },
+//   {
+//     title: "Record Read External Storage Permission",
+//     message: " Please give access",
+//     permission: PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+//   },
+//   {
+//     title: "Record Write External Storage Permission",
+//     message: " Please give access",
+//     permission: PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+//   },
+// ];
 
 const RecordVideoScreen: FC<RecordVideoScreenProps> = ({ navigation }) => {
-  // Potentially need to keep track of camera permissions in state
+  const [hasPermission, setHasPermission] = useState<any>(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+
   useEffect(() => {
-    const callCheckPermissions = async () => {
-      // If not already granted, ask the user to give us access
-      const didGetPermissions = await requestPermissions(recordingPermissions);
-      // Since user did not give us access, lets go back to previous screen
-      if (!didGetPermissions) {
-        alert("Did not allow access so will navigate back...");
-        navigation.goBack();
-      }
-    };
-    callCheckPermissions();
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
   }, []);
 
-  const handleNavigate = () => {
-    navigation.navigate("RecordVideo");
-  };
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
   return (
-    <View style={styles.container}>
-      <Text>You've reached the record video screen, so cool!</Text>
-      <Button title="Record Shot" onPress={handleNavigate} />
+    <View style={{ flex: 1 }}>
+      <Camera style={{ flex: 1 }} type={type}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "transparent",
+            flexDirection: "row",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              flex: 0.1,
+              alignSelf: "flex-end",
+              alignItems: "center",
+            }}
+            onPress={() => {
+              setType(
+                type === Camera.Constants.Type.back
+                  ? Camera.Constants.Type.front
+                  : Camera.Constants.Type.back
+              );
+            }}
+          >
+            <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
+              {" "}
+              Flip{" "}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </Camera>
     </View>
   );
 };
