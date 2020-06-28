@@ -6,7 +6,7 @@ import { RootStackParamList } from "../../types";
 import ListOptionWithIcon from "../../components/ListOptionWithIcon/ListOptionWithIcon";
 import { TypeOfShot, AngleOfShot } from "../../components/enums/TypeOfShot";
 import { IRecordShotOption } from "../../components/interfaces/IRecordShotOptions";
-const Icon = require("../../img/right-chevron.png");
+const Icon = require("../../assets/images/right-chevron.png");
 
 type RecordShotSetupScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
