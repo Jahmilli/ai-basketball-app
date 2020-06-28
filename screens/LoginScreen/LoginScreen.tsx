@@ -1,8 +1,7 @@
 import React, { FC, useState } from "react";
-import styles from "./styles";
-import { Text, View } from "../../components/Themed";
+import styles from "./LoginScreenStyles";
 import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
-import { Button } from "react-native";
+import { Button, View, Text } from "react-native";
 import { NavigationProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types";
@@ -32,7 +31,6 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Rest Time (Seconds)</Text>
       <CustomTextInput
         value={userDetails.username}
         onChangeText={handleChangeText("username")}

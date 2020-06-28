@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import styles from "./styles";
+import styles from "./CustomTextInputStyles";
 import { TextInput } from "react-native-gesture-handler";
 
 type CustomTextInputProps = {

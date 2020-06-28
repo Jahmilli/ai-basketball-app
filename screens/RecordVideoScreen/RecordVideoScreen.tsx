@@ -1,26 +1,26 @@
 import React, { FC } from "react";
-import styles from "./HomeScreenStyles";
+import styles from "./RecordVideoScreenStyles";
 import { Button, Text, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types";
 
-type HomeScreenNavigationProp = StackNavigationProp<
+type RecordVideoScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Login"
 >;
-type HomeScreenProps = {
-  navigation: HomeScreenNavigationProp;
+type RecordVideoScreenProps = {
+  navigation: RecordVideoScreenNavigationProp;
 };
-const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
+const RecordVideoScreen: FC<RecordVideoScreenProps> = ({ navigation }) => {
   const handleNavigate = () => {
-    navigation.navigate("RecordShotSetup");
+    navigation.navigate("RecordVideo");
   };
   return (
     <View style={styles.container}>
-      <Text>You've reached the home screen, wow!</Text>
+      <Text>You've reached the record video screen, so cool!</Text>
       <Button title="Record Shot" onPress={handleNavigate} />
     </View>
   );
 };
 
-export default HomeScreen;
+export default RecordVideoScreen;

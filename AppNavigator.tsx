@@ -4,6 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RecordShotSetupScreen from "./screens/RecordShotSetupScreen/RecordShotSetupScreen";
+import RecordShotOptionsScreen from "./screens/RecordShotOptionsScreen/RecordShotOptionsScreen";
+import RecordVideoScreen from "./screens/RecordVideoScreen/RecordVideoScreen";
 
 const Stack = createStackNavigator();
 
@@ -25,6 +27,16 @@ const Routes = () => {
         name="RecordShotSetup"
         component={RecordShotSetupScreen}
         options={{ title: "Record Shot Setup Screen" }}
+      />
+      <Stack.Screen
+        name="RecordShotOptions"
+        component={RecordShotOptionsScreen}
+        options={{ title: "Select Angle Setup Screen" }}
+      />
+      <Stack.Screen
+        name="RecordVideo"
+        component={RecordVideoScreen}
+        options={{ title: "Record Video Screen" }}
       />
     </Stack.Navigator>
   );
