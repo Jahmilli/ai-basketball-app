@@ -1051,7 +1051,7 @@
     xmlbuilder "^14.0.0"
     xmldom "~0.1.31"
 
-"@expo/vector-icons@^10.0.0", "@expo/vector-icons@^10.0.2":
+"@expo/vector-icons@^10.0.2", "@expo/vector-icons@^10.2.0":
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.2.0.tgz#3c70656683a6a873e18efc00bc61fc160a80dc55"
   integrity sha512-dYe0SW/xbzWRtWG7i1pc3QPMGMbdReVgP02XlwMkS4srAAjF0cZQVa3ZgZ6qzxI+OzKudpDXZRmENNth/b263g==
@@ -3187,6 +3187,11 @@ expo-location@~8.2.1:
   integrity sha512-MixKapt3nijAxyjIISscBzdKi8bwh0H/dWYsL2mCofrjguFHOh2gP07h95902lekb7NVqybl5AIQRW5cvrG4rQ==
   dependencies:
     invariant "^2.2.4"
+
+expo-media-library@^8.2.1:
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/expo-media-library/-/expo-media-library-8.2.1.tgz#2296298dfcf2b19b56c201cb62b2b67c197bede0"
+  integrity sha512-V0XDewHE7MFgwNAUZlruAabMCxM9uf9FfmgKIcoolWq/HGTC0GmwqN1QZIrKEejkqQLJWbUP8HoBWGx7IXz3ng==
 
 expo-permissions@~9.0.1:
   version "9.0.1"
