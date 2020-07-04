@@ -34,28 +34,28 @@ const Recorder: FC = () => {
         setCameraRef(ref);
       }}
     >
+      <View style={styles.topLockup}>
+        <TouchableOpacity
+          style={styles.reverseCameraButton}
+          onPress={() => {
+            setType(
+              type === Camera.Constants.Type.back
+                ? Camera.Constants.Type.front
+                : Camera.Constants.Type.back
+            );
+          }}
+        >
+          <Ionicons
+            name={
+              Platform.OS === "ios" ? "ios-reverse-camera" : "md-reverse-camera"
+            }
+            size={40}
+            color="white"
+          />
+        </TouchableOpacity>
+      </View>
       <View style={styles.bottomLockup}>
         <View style={styles.optionsLockup}>
-          <TouchableOpacity
-            style={styles.reverseCameraButton}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}
-          >
-            <Ionicons
-              name={
-                Platform.OS === "ios"
-                  ? "ios-reverse-camera"
-                  : "md-reverse-camera"
-              }
-              size={40}
-              color="white"
-            />
-          </TouchableOpacity>
           <TouchableOpacity
             style={{ alignSelf: "center" }}
             onPress={async () => {

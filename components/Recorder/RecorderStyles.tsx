@@ -4,6 +4,10 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
   },
+  topLockup: {
+    paddingLeft: 25,
+    paddingTop: 25,
+  },
   bottomLockup: {
     flex: 1,
     backgroundColor: "transparent",
@@ -13,10 +17,10 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
+    paddingBottom: 10,
   },
   reverseCameraButton: {
-    flex: 0.1,
-    alignSelf: "flex-end",
+    alignSelf: "flex-start",
   },
   recordVideoOuterCircle: {
     borderWidth: 2,
