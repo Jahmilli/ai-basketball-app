@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import styles from "./RecordShotOptionsScreenStyles";
 import { Button, View, Text, Image } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";

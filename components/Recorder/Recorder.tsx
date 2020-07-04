@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, FC } from "react";
+import React, { useState, useEffect, FC } from "react";
 import { Text, View, TouchableOpacity, Platform } from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import { Camera } from "expo-camera";

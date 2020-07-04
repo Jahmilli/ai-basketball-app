@@ -54,7 +54,7 @@
   "private": true,
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint:fix && lint-staged && yarn test"
+      "pre-commit": "lint-staged && yarn lint"
     }
   },
   "lint-staged": {

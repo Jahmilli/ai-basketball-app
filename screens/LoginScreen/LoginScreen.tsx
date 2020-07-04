@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 import styles from "./LoginScreenStyles";
 import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
 import { Button, View, Text } from "react-native";
-import { NavigationProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types";
 
@@ -10,9 +9,11 @@ type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Login"
 >;
+
 type LoginScreenProps = {
   navigation: LoginScreenNavigationProp;
 };
+
 const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState({
     username: "",

@@ -36,6 +36,7 @@
     ],
     "no-internal-module": true,
     "no-trailing-whitespace": true,
+    "no-unused-variable": true,
     "prefer-const": true,
     "jsdoc-format": true
   }

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Text as DefaultText, View as DefaultView } from "react-native";
 
 import Colors from "../constants/Colors";

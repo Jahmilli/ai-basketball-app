@@ -1,8 +1,6 @@
 import React, { FC } from "react";
 import styles from "./ListOptionWithIconStyles";
-import { Button, Image, Text, View } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types";
+import { Image, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 type ListOptionWithIconProps = {
