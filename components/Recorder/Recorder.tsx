@@ -62,7 +62,7 @@ const Recorder: FC = () => {
               if (!!cameraRef) {
                 if (!recording) {
                   setRecording(true);
-                  let video = await cameraRef.recordAsync();
+                  const video = await cameraRef.recordAsync();
                   console.log("video", video);
                   await MediaLibrary.createAssetAsync(video.uri);
                 } else {

@@ -9,13 +9,14 @@ type RecordVideoScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Login"
 >;
+
 type RecordVideoScreenProps = {
   navigation: RecordVideoScreenNavigationProp;
 };
 
 const RecordVideoScreen: FC<RecordVideoScreenProps> = ({ navigation }) => {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <Recorder />
     </View>
   );

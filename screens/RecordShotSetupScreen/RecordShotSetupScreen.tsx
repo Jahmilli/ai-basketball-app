@@ -4,8 +4,8 @@ import { Text, View, Button } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types";
 import ListOptionWithIcon from "../../components/ListOptionWithIcon/ListOptionWithIcon";
-import { TypeOfShot, AngleOfShot } from "../../components/enums/TypeOfShot";
-import { IRecordShotOption } from "../../components/interfaces/IRecordShotOptions";
+import { TypeOfShot, AngleOfShot } from "../../components/enums/ShotOption";
+import { anglesList, typeOfShotsList } from "./RecordShotOptions";
 const Icon = require("../../assets/images/right-chevron.png");
 
 type RecordShotSetupScreenNavigationProp = StackNavigationProp<
@@ -17,50 +17,10 @@ type RecordShotSetupScreenProps = {
   navigation: RecordShotSetupScreenNavigationProp;
 };
 
-// TODO: This should either live in database or live in constants directory
-const anglesList: IRecordShotOption[] = [
-  {
-    id: AngleOfShot.SIDE_ON,
-    title: "Side on",
-    description:
-      "The player will be recorded from their left or right side at shoulder",
-    image: Icon, // TODO: Update with proper image
-  },
-  {
-    id: AngleOfShot.FRONT_FACING,
-    title: "Front facing",
-    description: "The player ",
-    image: Icon, // TODO: Update with proper image
-  },
-  {
-    id: AngleOfShot.FROM_THE_BACK,
-    title: "From the back",
-    description:
-      "The player will be facing away from the camera and the camera",
-    image: Icon, // TODO: Update with proper image
-  },
-];
-
-// TODO: This should either live in database or live in constants directory
-const typeOfShotsList: IRecordShotOption[] = [
-  {
-    id: TypeOfShot.FREE_THROW,
-    title: "Free throw",
-    description: "The player will be shooting from the free throw line",
-    image: Icon, // TODO: Update with proper image
-  },
-  {
-    id: TypeOfShot.THREE_POINTER,
-    title: "Three Pointer",
-    description: "The player will be shooting from the three point line",
-    image: Icon, // TODO: Update with proper image
-  },
-];
-
 const RecordShotSetupScreen: FC<RecordShotSetupScreenProps> = ({
   navigation,
 }) => {
-  const [typeOfShot, setTypeOfShot] = useState<TypeOfShot>(); // TODO: Maybe use enum for types of shots
+  const [typeOfShot, setTypeOfShot] = useState<TypeOfShot>();
   const [angleOfShot, setAngleOfShot] = useState<AngleOfShot>();
 
   const handleSelectAngleOfShot = () => {
@@ -78,6 +38,7 @@ const RecordShotSetupScreen: FC<RecordShotSetupScreenProps> = ({
   };
 
   const handleSelectContinue = () => {
+    // TODO: Uncomment this when ready to use data in recorder...
     // if (!typeOfShot || !angleOfShot) {
     //   alert("Please complete all options before continuing...");
     //   return;

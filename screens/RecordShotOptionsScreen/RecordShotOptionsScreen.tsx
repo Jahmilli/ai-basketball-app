@@ -4,7 +4,6 @@ import { Button, View, Text, Image } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types";
 import { FlatList } from "react-native-gesture-handler";
-import { AngleOfShot } from "../../components/enums/TypeOfShot";
 import { RouteProp } from "@react-navigation/native";
 import { IRecordShotOption } from "../../components/interfaces/IRecordShotOptions";
 
@@ -25,7 +24,6 @@ type SelectAngleScreenProps = {
 
 const RecordShotOptionsScreen: FC<SelectAngleScreenProps> = ({
   navigation,
-
   route,
 }) => {
   const { handleSelect, options } = route.params;
@@ -65,7 +63,6 @@ const RecordShotOptionsScreen: FC<SelectAngleScreenProps> = ({
         style={styles.list}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        // numColumns={1}
       />
     </View>
   );
