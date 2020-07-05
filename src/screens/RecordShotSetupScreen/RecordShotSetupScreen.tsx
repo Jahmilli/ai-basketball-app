@@ -4,7 +4,8 @@ import { Text, View, Button } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../types";
 import ListOptionWithIcon from "../../components/ListOptionWithIcon/ListOptionWithIcon";
-import { TypeOfShot, AngleOfShot } from "../../enums/ShotOption";
+import { AngleOfShot } from "../../enums/AngleOfShot";
+import { TypeOfShot } from "../../enums/TypeOfShot";
 import { anglesList, typeOfShotsList } from "./RecordShotOptions";
 const Icon = require("../../../assets/images/right-chevron.png");
 

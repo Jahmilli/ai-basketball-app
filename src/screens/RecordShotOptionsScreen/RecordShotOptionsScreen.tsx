@@ -5,7 +5,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../types";
 import { FlatList } from "react-native-gesture-handler";
 import { RouteProp } from "@react-navigation/native";
-import { IRecordShotOption } from "../../interfaces/IRecordShotOptions";
+import { IRecordShotOption } from "../../interfaces/IRecordShotOption";
 
 type SelectAngleScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
