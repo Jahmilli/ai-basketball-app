@@ -2,10 +2,10 @@ import React, { FC } from "react";
 import styles from "./RecordShotOptionsScreenStyles";
 import { Button, View, Text, Image } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types";
+import { RootStackParamList } from "../../../types";
 import { FlatList } from "react-native-gesture-handler";
 import { RouteProp } from "@react-navigation/native";
-import { IRecordShotOption } from "../../components/interfaces/IRecordShotOptions";
+import { IRecordShotOption } from "../../interfaces/IRecordShotOptions";
 
 type SelectAngleScreenNavigationProp = StackNavigationProp<
   RootStackParamList,

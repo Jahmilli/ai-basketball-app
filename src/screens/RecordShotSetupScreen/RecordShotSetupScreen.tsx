@@ -2,11 +2,11 @@ import React, { FC, useState } from "react";
 import styles from "./RecordShotSetupScreenStyles";
 import { Text, View, Button } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types";
+import { RootStackParamList } from "../../../types";
 import ListOptionWithIcon from "../../components/ListOptionWithIcon/ListOptionWithIcon";
-import { TypeOfShot, AngleOfShot } from "../../components/enums/ShotOption";
+import { TypeOfShot, AngleOfShot } from "../../enums/ShotOption";
 import { anglesList, typeOfShotsList } from "./RecordShotOptions";
-const Icon = require("../../assets/images/right-chevron.png");
+const Icon = require("../../../assets/images/right-chevron.png");
 
 type RecordShotSetupScreenNavigationProp = StackNavigationProp<
   RootStackParamList,

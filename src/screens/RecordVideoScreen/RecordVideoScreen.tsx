@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styles from "./RecordVideoScreenStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types";
+import { RootStackParamList } from "../../../types";
 import { View } from "react-native";
 import Recorder from "../../components/Recorder/Recorder";
 

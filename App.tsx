@@ -1,8 +1,8 @@
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import useCachedResources from "./hooks/useCachedResources";
-import AppNavigator from "./AppNavigator";
+import useCachedResources from "./src/hooks/useCachedResources";
+import AppNavigator from "./src/AppNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
