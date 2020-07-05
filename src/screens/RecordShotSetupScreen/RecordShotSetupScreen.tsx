@@ -1,12 +1,13 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import styles from "./RecordShotSetupScreenStyles";
 import { Text, View, Button } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../types";
+import { RootStackParamList } from "../../types/types";
 import ListOptionWithIcon from "../../components/ListOptionWithIcon/ListOptionWithIcon";
 import { AngleOfShot } from "../../enums/AngleOfShot";
 import { TypeOfShot } from "../../enums/TypeOfShot";
-import { anglesList, typeOfShotsList } from "./RecordShotOptions";
+import { anglesList, typeOfShotsList } from "../../constants/RecordShotOptions";
+import { RouteProp } from "@react-navigation/native";
 const Icon = require("../../../assets/images/right-chevron.png");
 
 type RecordShotSetupScreenNavigationProp = StackNavigationProp<
@@ -14,26 +15,47 @@ type RecordShotSetupScreenNavigationProp = StackNavigationProp<
   "RecordShotSetup"
 >;
 
+type RecordShotSetupScreenRouteProp = RouteProp<
+  RootStackParamList,
+  "RecordShotSetup"
+>;
+
 type RecordShotSetupScreenProps = {
   navigation: RecordShotSetupScreenNavigationProp;
+  route: RecordShotSetupScreenRouteProp;
 };
 
 const RecordShotSetupScreen: FC<RecordShotSetupScreenProps> = ({
   navigation,
+  route,
 }) => {
+  useEffect(() => {
+    const id = route.params?.id;
+    if (!id) {
+      return;
+    }
+    if (Object.values(AngleOfShot).includes(id as AngleOfShot)) {
+      setAngleOfShot(id as AngleOfShot);
+    } else if (Object.values(TypeOfShot).includes(id as TypeOfShot)) {
+      setTypeOfShot(id as TypeOfShot);
+    } else {
+      console.warn(`UNKNOWN TYPE FOR ID: ${id}`);
+    }
+  }, [route.params?.id]);
+
   const [typeOfShot, setTypeOfShot] = useState<TypeOfShot>();
   const [angleOfShot, setAngleOfShot] = useState<AngleOfShot>();
 
   const handleSelectAngleOfShot = () => {
     navigation.navigate("RecordShotOptions", {
-      handleSelect: setAngleOfShot,
+      screen: "RecordShotSetup",
       options: anglesList,
     });
   };
 
   const handleSelectTypeOfShot = () => {
     navigation.navigate("RecordShotOptions", {
-      handleSelect: setTypeOfShot,
+      screen: "RecordShotSetup",
       options: typeOfShotsList,
     });
   };

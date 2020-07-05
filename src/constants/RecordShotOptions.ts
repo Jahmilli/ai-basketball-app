@@ -1,7 +1,7 @@
-import { IRecordShotOption } from "../../interfaces/IRecordShotOption";
-import { AngleOfShot } from "../../enums/AngleOfShot";
-import { TypeOfShot } from "../../enums/TypeOfShot";
-const Icon = require("../../../assets/images/right-chevron.png");
+import { IRecordShotOption } from "../interfaces/IRecordShotOption";
+import { AngleOfShot } from "../enums/AngleOfShot";
+import { TypeOfShot } from "../enums/TypeOfShot";
+const Icon = require("../../assets/images/right-chevron.png");
 
 export const anglesList: IRecordShotOption[] = [
   {

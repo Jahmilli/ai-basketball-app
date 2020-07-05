@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
     width: "100%",
     borderColor: "gray",
     borderWidth: 1,
+    borderRadius: 50,
+    padding: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 });
 

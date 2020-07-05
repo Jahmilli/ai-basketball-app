@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styles from "./RecordShotOptionsScreenStyles";
 import { Button, View, Text, Image } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../types";
+import { RootStackParamList } from "../../types/types";
 import { FlatList } from "react-native-gesture-handler";
 import { RouteProp } from "@react-navigation/native";
 import { IRecordShotOption } from "../../interfaces/IRecordShotOption";
@@ -26,11 +26,11 @@ const RecordShotOptionsScreen: FC<SelectAngleScreenProps> = ({
   navigation,
   route,
 }) => {
-  const { handleSelect, options } = route.params;
-  const handleSelectAngle = (angle: IRecordShotOption) => {
-    // Set state in previous, then go back
-    handleSelect(angle.id);
-    navigation.goBack();
+  const { screen, options } = route.params;
+  const handleSelectRecordShotOption = (angle: IRecordShotOption) => {
+    navigation.navigate(screen, {
+      id: angle.id,
+    });
   };
 
   const renderItem = ({ item }: { item: IRecordShotOption }) => (
@@ -46,7 +46,7 @@ const RecordShotOptionsScreen: FC<SelectAngleScreenProps> = ({
       </View>
       <Button
         title="SELECT THIS OPTION"
-        onPress={() => handleSelectAngle(item)}
+        onPress={() => handleSelectRecordShotOption(item)}
       />
     </View>
   );

@@ -23,3 +23,24 @@ The following steps need to be followed to run the application:
 
 After you've started the application for either Android or IOS, expect to see in the terminal a QR code displayed. In the expo application on your mobile device, select 'Scan QR Code' and scan this code. Expect after a shortwhile that the application will load. You should be able to make changes to the application now and once saved, see that change reflected in the mobile application.
 
+== Conventions
+
+=== Directory structure
+
+ /
+ |- assets/              # Assets used for the application (Images, Fonts etc)
+ |- App.tsx              # Entrypoint for the application
+ |- src/AppNavigator.tsx # Contains all the routes for the application
+ |- src/components/      # Reusable components to be used across the application
+ |- src/screens/         # Screens that contains a number of components and are routable to in the application
+ |- src/enums/           # Enums to be used across the application
+ |- src/interfaces/      # Interfaces to be used across the application
+ |- src/constants/       # Any constant values that can be reused across the application
+ |- src/types/           # Any types that can be reused across the application
+ |- src/hooks/           # For any custom hooks that can be reused across the application
+
+=== Filenames
+
+* Interfaces - I<PascalCase>.ts (prefix with I)
+* Unit Tests - <PascalCase>.unit.test.ts
+
