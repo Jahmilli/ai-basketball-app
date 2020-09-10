@@ -3,6 +3,7 @@ import { TypeOfShot } from "../enums/TypeOfShot";
 
 export type RootStackParamList = {
   Login: undefined;
+  Onboarding: undefined;
   Home: undefined;
   RecordShotSetup:
     | {
@@ -13,5 +14,8 @@ export type RootStackParamList = {
     screen: keyof RootStackParamList;
     options: any;
   };
-  RecordVideo: undefined;
+  RecordVideo: {
+    typeOfShot: TypeOfShot;
+    angleOfShot: AngleOfShot;
+  };
 };

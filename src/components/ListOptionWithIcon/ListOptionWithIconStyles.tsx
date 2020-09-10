@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   body: {},
+  title: {
+    fontWeight: "bold",
+  },
   icon: {
     height: 20,
     width: 20,

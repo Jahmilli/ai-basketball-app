@@ -9,8 +9,15 @@ import {
   streamVideo,
 } from "../../logic/functions/uploadVideo";
 import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
+import { TypeOfShot } from "../../enums/TypeOfShot";
+import { AngleOfShot } from "../../enums/AngleOfShot";
 
-const Recorder: FC = () => {
+type RecorderProps = {
+  typeOfShot: TypeOfShot;
+  angleOfShot: AngleOfShot;
+};
+
+const Recorder: FC<RecorderProps> = ({ typeOfShot, angleOfShot }) => {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [cameraRef, setCameraRef] = useState<Camera | null>(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -70,7 +77,10 @@ const Recorder: FC = () => {
 
   const handleSubmitVideo = async (uri: string) => {
     try {
-      const result: IUploadedVideo = await createVideoEntry();
+      const result: IUploadedVideo = await createVideoEntry(
+        typeOfShot,
+        angleOfShot
+      );
       await streamVideo(result.id, uri);
     } catch (err) {
       console.warn("An error occurred when submitting video", err);

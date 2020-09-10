@@ -6,6 +6,7 @@ import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RecordShotSetupScreen from "./screens/RecordShotSetupScreen/RecordShotSetupScreen";
 import RecordShotOptionsScreen from "./screens/RecordShotOptionsScreen/RecordShotOptionsScreen";
 import RecordVideoScreen from "./screens/RecordVideoScreen/RecordVideoScreen";
+import OnboardingScreen from "./screens/OnboardingScreen/OnboardingScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,11 @@ const Routes = () => {
         name="Login"
         component={LoginScreen}
         options={{ title: "Login Screen" }}
+      />
+      <Stack.Screen
+        name="Onboarding"
+        component={OnboardingScreen}
+        options={{ title: "Onboarding Screen" }}
       />
       <Stack.Screen
         name="Home"

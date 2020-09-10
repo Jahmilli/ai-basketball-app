@@ -1,6 +1,7 @@
 import { AngleOfShot } from "../enums/AngleOfShot";
 import { TypeOfShot } from "../enums/TypeOfShot";
 
+// Having different casing conventions is so much fun! :D
 export interface IUploadedVideo {
   id: string;
   user_id: string;

@@ -66,7 +66,10 @@ const RecordShotSetupScreen: FC<RecordShotSetupScreenProps> = ({
     //   alert("Please complete all options before continuing...");
     //   return;
     // }
-    navigation.navigate("RecordVideo");
+    navigation.navigate("RecordVideo", {
+      typeOfShot: typeOfShot ?? TypeOfShot.FREE_THROW,
+      angleOfShot: angleOfShot ?? AngleOfShot.FROM_THE_BACK,
+    });
   };
 
   return (
