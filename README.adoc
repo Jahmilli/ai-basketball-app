@@ -23,6 +23,12 @@ The following steps need to be followed to run the application:
 
 After you've started the application for either Android or IOS, expect to see in the terminal a QR code displayed. In the expo application on your mobile device, select 'Scan QR Code' and scan this code. Expect after a shortwhile that the application will load. You should be able to make changes to the application now and once saved, see that change reflected in the mobile application.
 
+NOTE: Because we live in 2021 and the world is a magical place, in order to run the application with the backend you need to update the AppConfig.ts file with the private IP address of your computer so the application can connect to the webserver (How good is that!!).
+
+To do this, when you startup expo (via Android or IOS), you should expect that you see an IP logged, ie `exp://192.168.0.1:19000`. You should also see the IP address when you scan the QR code and view it from Expo.
+Take this IP address and replace `serverHostname` in AppConfig.ts with it. EG `serverHostname=192.168.0.1`.
+
+
 == Conventions
 
 === Directory structure

@@ -2,8 +2,10 @@ import { post, get } from "./core/fetch";
 import { TypeOfShot } from "../../enums/TypeOfShot";
 import { AngleOfShot } from "../../enums/AngleOfShot";
 import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
+import AppConfig from "../../../AppConfig";
 
-const server = `http://192.168.0.24:3001`;
+const server = AppConfig.apiUrl;
+console.log("server is ", server);
 
 export const getVideos = async (userId: string): Promise<any> => {
   try {

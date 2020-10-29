@@ -6,18 +6,21 @@ import { RootStackParamList } from "../../types/types";
 import { getVideos } from "../../logic/functions/uploadVideo";
 import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
 import { FlatList } from "react-native-gesture-handler";
+import { useIsFocused } from "@react-navigation/native";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type HomeScreenProps = {
   navigation: HomeScreenNavigationProp;
 };
 const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
+  const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [videos, setVideos] = useState([]);
   const handleNavigate = () => {
     navigation.navigate("RecordShotSetup");
   };
 
   useEffect(() => {
+    console.log("callGetvideos was called!!!!!");
     const callGetVideos = async () => {
       try {
         const videos = await getVideos("test");
@@ -27,7 +30,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
       }
     };
     callGetVideos();
-  }, []);
+  }, [isFocused]);
 
   const renderItem = ({ item }: { item: IUploadedVideo }) => (
     <View style={styles.listItem}>

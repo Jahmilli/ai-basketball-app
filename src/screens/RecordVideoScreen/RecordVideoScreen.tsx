@@ -10,7 +10,7 @@ type SelectAngleScreenRouteProp = RouteProp<RootStackParamList, "RecordVideo">;
 
 type RecordVideoScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  "Login"
+  "RecordVideo"
 >;
 
 type RecordVideoScreenProps = {
@@ -25,7 +25,11 @@ const RecordVideoScreen: FC<RecordVideoScreenProps> = ({
   const { typeOfShot, angleOfShot } = route.params;
   return (
     <View style={styles.container}>
-      <Recorder typeOfShot={typeOfShot} angleOfShot={angleOfShot} />
+      <Recorder
+        typeOfShot={typeOfShot}
+        angleOfShot={angleOfShot}
+        navigation={navigation}
+      />
     </View>
   );
 };
