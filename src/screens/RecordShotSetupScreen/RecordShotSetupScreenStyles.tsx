@@ -7,6 +7,13 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   input: {},
+  title: {
+    fontSize: 24,
+  },
+  subheader1: {
+    fontSize: 16,
+    marginBottom: 20,
+  },
 });
 
 export default styles;

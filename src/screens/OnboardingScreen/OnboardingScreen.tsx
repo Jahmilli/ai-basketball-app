@@ -62,6 +62,7 @@ const OnboardingScreen: FC<OnboardingScreenProps> = ({ navigation }) => {
             </View>
           ),
           title: "",
+          subtitle: "",
         },
         {
           backgroundColor: "#fff",
@@ -79,6 +80,7 @@ const OnboardingScreen: FC<OnboardingScreenProps> = ({ navigation }) => {
               <Image
                 style={{
                   height: "60%",
+                  width: "100%",
                   resizeMode: "center",
                 }}
                 source={require("../../../assets/images/the-rock.jpg")}
@@ -97,6 +99,7 @@ const OnboardingScreen: FC<OnboardingScreenProps> = ({ navigation }) => {
             </View>
           ),
           title: "",
+          subtitle: "",
         },
         {
           backgroundColor: "#fff",
@@ -114,6 +117,7 @@ const OnboardingScreen: FC<OnboardingScreenProps> = ({ navigation }) => {
               <Image
                 style={{
                   height: "60%",
+                  width: "100%",
                   resizeMode: "center",
                 }}
                 source={require("../../../assets/images/ben.jpg")}
@@ -132,6 +136,7 @@ const OnboardingScreen: FC<OnboardingScreenProps> = ({ navigation }) => {
             </View>
           ),
           title: "",
+          subtitle: "",
         },
       ]}
     />

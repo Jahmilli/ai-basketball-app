@@ -15,6 +15,7 @@ import { useInterval } from "../../hooks/useInterval";
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../types/types";
 import { StackNavigationProp } from "@react-navigation/stack";
+import CameraRoll from "@react-native-community/cameraroll";
 
 type RecordVideoScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -83,17 +84,34 @@ const Recorder: FC<RecorderProps> = ({
       cameraRef.stopRecording();
       return;
     }
+    setRecording(true);
+    const video = await cameraRef.recordAsync();
+    if (Platform.OS === "android") {
+      await handleRecordingAndroid(video.uri);
+    } else {
+      await handleRecordingIOS(video.uri);
+    }
+  };
 
+  const handleRecordingAndroid = async (uri: string) => {
     try {
-      setRecording(true);
-      const video = await cameraRef.recordAsync();
-      const result = await MediaLibrary.createAssetAsync(video.uri);
+      const result = await MediaLibrary.createAssetAsync(uri);
 
       const resultAdditionalInfo = await MediaLibrary.getAssetInfoAsync(result);
       if (!resultAdditionalInfo.localUri) {
         throw new Error("Missing localURI");
       }
       await handleSubmitVideo(resultAdditionalInfo.localUri);
+      displaySuccessAlertMessage();
+    } catch (err) {
+      console.log("An error occurred in recording", err);
+      alert("An error occurred when submitting video, try again!");
+    }
+  };
+
+  const handleRecordingIOS = async (uri: string) => {
+    try {
+      await handleSubmitVideo(uri);
       displaySuccessAlertMessage();
     } catch (err) {
       console.log("An error occurred in recording", err);

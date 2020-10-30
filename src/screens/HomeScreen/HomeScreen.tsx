@@ -15,18 +15,24 @@ type HomeScreenProps = {
 const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const handleNavigate = () => {
     navigation.navigate("RecordShotSetup");
   };
 
   useEffect(() => {
-    console.log("callGetvideos was called!!!!!");
+    if (isLoading) {
+      return;
+    }
     const callGetVideos = async () => {
       try {
+        setIsLoading(true);
         const videos = await getVideos("test");
         setVideos(videos);
       } catch (err) {
         console.log("An error occurred when getting videos", err);
+      } finally {
+        setIsLoading(false);
       }
     };
     callGetVideos();
@@ -70,9 +76,19 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     </View>
   );
 
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.noUploadsLockup}>
+          <Text style={styles.getStartedText}>Loading...</Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      {videos.length == 0 ? (
+      {videos.length > 0 ? (
         <>
           <View style={styles.uploadVideoLockup}>
             <Text style={styles.uploadVideoText}>Upload another video?</Text>
