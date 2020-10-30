@@ -6,12 +6,38 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     width: "100%",
+    height: "100%",
+    // backgroundColor: "red",
+  },
+  noUploadsLockup: {
+    height: "100%",
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+  },
+  getStartedText: {
+    fontSize: 16,
+    margin: 0,
+    marginBottom: 20,
+  },
+  uploadVideoLockup: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    width: "100%",
+  },
+  uploadVideoText: {
+    fontSize: 16,
+    margin: 0,
   },
   list: {
     width: "100%",
   },
   listItem: {
-    height: 200,
+    // height: 225,
     width: "100%",
     marginTop: 10,
     borderColor: "black",
@@ -28,10 +54,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
+  listItemTitleLockup: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
   listItemTextLockup: {
     height: "100%",
     flex: 1,
     padding: 10,
+  },
+  viewFeedbackLockup: {
+    margin: 10,
   },
   title: {
     fontWeight: "bold",

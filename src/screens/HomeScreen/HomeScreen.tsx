@@ -5,7 +5,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types/types";
 import { getVideos } from "../../logic/functions/uploadVideo";
 import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { useIsFocused } from "@react-navigation/native";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
@@ -32,15 +32,20 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     callGetVideos();
   }, [isFocused]);
 
+  const handleNavigateToVideoFeedback = (video: IUploadedVideo) => {
+    navigation.navigate("VideoFeedback", {
+      video,
+    });
+  };
+
   const renderItem = ({ item }: { item: IUploadedVideo }) => (
     <View style={styles.listItem}>
       <View style={styles.listItemBody}>
         <View style={styles.listItemTextLockup}>
-          <Text style={styles.title}>{item.name}</Text>
+          <View style={styles.listItemTitleLockup}>
+            <Text style={styles.title}>{item.name}</Text>
+          </View>
           <Text>{item.description}</Text>
-          <Text>
-            Processed status: {item.is_processed ? "Complete" : "Pending"}
-          </Text>
           <Text>
             Uploaded date:{" "}
             {new Date(item.uploaded_timestamp).toLocaleDateString()}
@@ -49,26 +54,30 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
             Uploaded time:{" "}
             {new Date(item.uploaded_timestamp).toLocaleTimeString()}
           </Text>
-          <Text>Type of Shot: {item.type_of_shot}</Text>
-          <Text>Angle of Shot: {item.angle_of_shot}</Text>
+          <Text>
+            Processed status: {item.is_processed ? "Complete" : "Pending"}
+          </Text>
+          {item.is_processed ? (
+            <View style={styles.viewFeedbackLockup}>
+              <Button
+                title="View Feedback"
+                onPress={() => handleNavigateToVideoFeedback(item)}
+              />
+            </View>
+          ) : null}
         </View>
-        {/* <View style={styles.listItemIconLockup}>
-          <Image style={styles.listItemIcon} source={item.image} />
-        </View> */}
       </View>
-      {/* <Button
-        title="SELECT THIS OPTION"
-        onPress={() => handleSelectRecordShotOption(item)}
-      /> */}
     </View>
   );
 
   return (
     <View style={styles.container}>
-      <Button title="Record Shot" onPress={handleNavigate} />
-      {videos.length > 0 ? (
+      {videos.length == 0 ? (
         <>
-          <Text>Videos are</Text>
+          <View style={styles.uploadVideoLockup}>
+            <Text style={styles.uploadVideoText}>Upload another video?</Text>
+            <Button title="Record Shot" onPress={handleNavigate} />
+          </View>
           <FlatList
             data={videos}
             style={styles.list}
@@ -77,7 +86,18 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
           />
         </>
       ) : (
-        <Text>You do not currently have any uploaded videos</Text>
+        <View style={styles.noUploadsLockup}>
+          <Text style={styles.getStartedText}>
+            Looks like you haven't uploaded videos yet!
+          </Text>
+          <Button title="Get Started!" onPress={handleNavigate} />
+          {/* <TouchableOpacity
+          style={styles.getStartedButton}
+          onPress={handleNavigate}
+        >
+          <Text>Get</Text>
+          </TouchableOpacity> */}
+        </View>
       )}
     </View>
   );

@@ -25,49 +25,113 @@ const OnboardingScreen: FC<OnboardingScreenProps> = ({ navigation }) => {
     <Onboarding
       onDone={handleCompleteOnboarding}
       onSkip={handleCompleteOnboarding}
+      imageContainerStyles={{ margin: 0, padding: 0 }}
       pages={[
         {
           backgroundColor: "#fff",
-          // image: (
-          //   <Image
-          //     style={{
-          //       width: win.width,
-          //       height: height * ratio,
-          //     }}
-          //     source={require("../../../assets/images/basketball-2.jpg")}
-          //   />
-          // ),
-          title: "Page 1",
-          subtitle: "This is the first page of the onboarding sequence",
+          image: (
+            <View
+              style={{
+                backgroundColor: "black",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <Image
+                style={{
+                  height: "60%",
+                  resizeMode: "contain",
+                }}
+                source={require("../../../assets/images/basketball-1.jpg")}
+              />
+              <Text
+                style={{
+                  marginTop: 10,
+                  padding: 0,
+                  color: "white",
+                  fontSize: 20,
+                  textAlign: "center",
+                }}
+              >
+                I am great at free throws. Seriously, free throws are, like, my
+                best thing.
+              </Text>
+            </View>
+          ),
+          title: "",
         },
         {
           backgroundColor: "#fff",
-          // image: (
-          //   <Image
-          //     style={{
-          //       width: win.width,
-          //       height: basketball2Height * basketball2Ratio,
-          //     }}
-          //     source={require("../../../assets/images/basketball-2.jpg")}
-          //   />
-          // ),
-          title: "Page 2",
-          subtitle: "This is the second page of the onboarding sequence",
+          image: (
+            <View
+              style={{
+                backgroundColor: "black",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <Image
+                style={{
+                  height: "60%",
+                  resizeMode: "center",
+                }}
+                source={require("../../../assets/images/the-rock.jpg")}
+              />
+              <Text
+                style={{
+                  marginTop: 10,
+                  padding: 0,
+                  color: "white",
+                  fontSize: 20,
+                  textAlign: "center",
+                }}
+              >
+                See you in the 🏀 NBA 🏀 Champ 😉
+              </Text>
+            </View>
+          ),
+          title: "",
         },
         {
           backgroundColor: "#fff",
-          // image: (
-          //   <Image
-          //     resizeMode="contain"
-          //     style={{
-          //       width: win.width,
-          //       height: height * ratio,
-          //     }}
-          //     source={require("../../../assets/images/the-rock.jpg")}
-          //   />
-          // ),
-          title: "Page 3",
-          subtitle: "This is the third page of the onboarding sequence",
+          image: (
+            <View
+              style={{
+                backgroundColor: "black",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <Image
+                style={{
+                  height: "60%",
+                  resizeMode: "center",
+                }}
+                source={require("../../../assets/images/ben.jpg")}
+              />
+              <Text
+                style={{
+                  marginTop: 10,
+                  padding: 0,
+                  color: "white",
+                  fontSize: 20,
+                  textAlign: "center",
+                }}
+              >
+                Built with ❤ by the AI Basketball Analytics
+              </Text>
+            </View>
+          ),
+          title: "",
         },
       ]}
     />

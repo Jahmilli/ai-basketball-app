@@ -7,6 +7,7 @@ import RecordShotSetupScreen from "./screens/RecordShotSetupScreen/RecordShotSet
 import RecordShotOptionsScreen from "./screens/RecordShotOptionsScreen/RecordShotOptionsScreen";
 import RecordVideoScreen from "./screens/RecordVideoScreen/RecordVideoScreen";
 import OnboardingScreen from "./screens/OnboardingScreen/OnboardingScreen";
+import VideoFeedbackScreen from "./screens/VideoFeedback/VideoFeedback";
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,11 @@ const Routes = () => {
         name="Home"
         component={HomeScreen}
         options={{ title: "Home Screen" }}
+      />
+      <Stack.Screen
+        name="VideoFeedback"
+        component={VideoFeedbackScreen}
+        options={{ title: "Feedback Screen" }}
       />
       <Stack.Screen
         name="RecordShotSetup"
