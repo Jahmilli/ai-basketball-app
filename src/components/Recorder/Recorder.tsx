@@ -27,6 +27,7 @@ import {
   IPermissionRequest,
   requestPermissions,
 } from "../../../utils/AndroidPermissions";
+import * as Permissions from "expo-permissions";
 
 type RecordVideoScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -53,7 +54,13 @@ const Recorder: FC<RecorderProps> = ({
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === MediaLibrary.PermissionStatus.GRANTED);
+      let audioRecordingStatus = await Permissions.askAsync(
+        Permissions.AUDIO_RECORDING
+      );
+      setHasPermission(
+        status === MediaLibrary.PermissionStatus.GRANTED &&
+          audioRecordingStatus.granted
+      );
     })();
   }, []);
 
