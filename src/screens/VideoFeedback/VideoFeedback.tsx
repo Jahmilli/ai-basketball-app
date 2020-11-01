@@ -69,7 +69,7 @@ const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
             Alignment of feet and shoulders:{" "}
           </Text>
           <Text style={styles.textValue}>
-            {video.feedback?.angle || "Missing feedback"}
+            {video.feedback?.multiAxis || "Missing feedback"}
           </Text>
         </View>
         <View style={styles.textLockup}>
@@ -77,13 +77,13 @@ const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
             Alignment of elbow, hip and knee of shooting arm:{" "}
           </Text>
           <Text style={styles.textValue}>
-            {video.feedback?.multiAxis || "Missing feedback"}
+            {video.feedback?.singleAxis || "Missing feedback"}
           </Text>
         </View>
         <View style={styles.textLockup}>
           <Text style={styles.textTitle}>Arm extension: </Text>
           <Text style={styles.textValue}>
-            {video.feedback?.singleAxis || "Missing feedback"}
+            {video.feedback?.angle || "Missing feedback"}
           </Text>
         </View>
       </View>
