@@ -65,8 +65,26 @@ const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
           <Text style={styles.textValue}>{video.angle_of_shot}</Text>
         </View>
         <View style={styles.textLockup}>
-          <Text style={styles.textTitle}>Feedback: </Text>
-          <Text style={styles.textValue}>{video.feedback}</Text>
+          <Text style={styles.textTitle}>
+            Alignment of feet and shoulders:{" "}
+          </Text>
+          <Text style={styles.textValue}>
+            {video.feedback?.angle || "Missing feedback"}
+          </Text>
+        </View>
+        <View style={styles.textLockup}>
+          <Text style={styles.textTitle}>
+            Alignment of elbow, hip and knee of shooting arm:{" "}
+          </Text>
+          <Text style={styles.textValue}>
+            {video.feedback?.multiAxis || "Missing feedback"}
+          </Text>
+        </View>
+        <View style={styles.textLockup}>
+          <Text style={styles.textTitle}>Arm extension: </Text>
+          <Text style={styles.textValue}>
+            {video.feedback?.singleAxis || "Missing feedback"}
+          </Text>
         </View>
       </View>
     </View>

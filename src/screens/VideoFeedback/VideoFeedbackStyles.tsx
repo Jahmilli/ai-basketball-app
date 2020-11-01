@@ -14,12 +14,15 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 20,
   },
-  bodyLockup: {},
+  bodyLockup: {
+    padding: 20,
+  },
   textLockup: {
     display: "flex",
     flexDirection: "row",
     marginTop: 5,
     marginBottom: 5,
+    flexWrap: "wrap",
   },
   textTitle: {
     fontWeight: "bold",
@@ -27,6 +30,7 @@ const styles = StyleSheet.create({
   },
   textValue: {
     fontSize: 16,
+    flexWrap: "wrap",
   },
 });
 
