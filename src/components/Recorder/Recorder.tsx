@@ -57,9 +57,13 @@ const Recorder: FC<RecorderProps> = ({
       let audioRecordingStatus = await Permissions.askAsync(
         Permissions.AUDIO_RECORDING
       );
+      let cameraRollStatus = await Permissions.askAsync(
+        Permissions.CAMERA_ROLL
+      );
       setHasPermission(
         status === MediaLibrary.PermissionStatus.GRANTED &&
-          audioRecordingStatus.granted
+          audioRecordingStatus.granted &&
+          cameraRollStatus.granted
       );
     })();
   }, []);
