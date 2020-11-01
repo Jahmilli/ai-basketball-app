@@ -1,5 +1,12 @@
 import React, { useState, useEffect, FC } from "react";
-import { Text, View, TouchableOpacity, Platform, Alert } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+  Alert,
+  PermissionsAndroid,
+} from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import { Camera } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,6 +23,10 @@ import { RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../types/types";
 import { StackNavigationProp } from "@react-navigation/stack";
 import CameraRoll from "@react-native-community/cameraroll";
+import {
+  IPermissionRequest,
+  requestPermissions,
+} from "../../../utils/AndroidPermissions";
 
 type RecordVideoScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
