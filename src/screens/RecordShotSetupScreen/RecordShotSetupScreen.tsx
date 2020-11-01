@@ -62,10 +62,10 @@ const RecordShotSetupScreen: FC<RecordShotSetupScreenProps> = ({
 
   const handleSelectContinue = () => {
     // TODO: Uncomment this when ready to use data in recorder...
-    if (!typeOfShot || !angleOfShot) {
-      alert("Please complete all options before continuing...");
-      return;
-    }
+    // if (!typeOfShot || !angleOfShot) {
+    //   alert("Please complete all options before continuing...");
+    //   return;
+    // }
     navigation.navigate("RecordVideo", {
       typeOfShot: typeOfShot ?? TypeOfShot.FREE_THROW,
       angleOfShot: angleOfShot ?? AngleOfShot.FROM_THE_BACK,
