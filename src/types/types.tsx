@@ -1,5 +1,6 @@
 import { AngleOfShot } from "../enums/AngleOfShot";
 import { TypeOfShot } from "../enums/TypeOfShot";
+import { IUploadedVideo } from "../interfaces/IUploadedVideo";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -17,5 +18,8 @@ export type RootStackParamList = {
   RecordVideo: {
     typeOfShot: TypeOfShot;
     angleOfShot: AngleOfShot;
+  };
+  VideoFeedback: {
+    video: IUploadedVideo;
   };
 };
