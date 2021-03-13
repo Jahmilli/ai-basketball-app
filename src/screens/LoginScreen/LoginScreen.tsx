@@ -20,14 +20,14 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
     password: "",
   });
   const handleChangeText = (key: string) => (text: string) => {
-    setUserDetails({
-      ...userDetails,
+    setUserDetails((currentDetails) => ({
+      ...currentDetails,
       [key]: text,
-    });
+    }));
   };
 
   const handleLogin = () => {
-    navigation.navigate("Home");
+    navigation.navigate("Onboarding");
   };
 
   return (
@@ -35,12 +35,12 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
       <CustomTextInput
         value={userDetails.username}
         onChangeText={handleChangeText("username")}
-        placeholder="Input your username"
+        placeholder="Username"
       />
       <CustomTextInput
         value={userDetails.password}
         onChangeText={handleChangeText("password")}
-        placeholder="Input your password"
+        placeholder="Password"
       />
       <Button title="LOG IN" onPress={handleLogin} />
       <View style={styles.textWrapper}>

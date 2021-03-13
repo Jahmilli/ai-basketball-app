@@ -4,9 +4,10 @@ class AppConfig {
   public readonly apiUrl: string;
 
   constructor() {
-    this.serverHostname = process.env.SERVER_HOSTNAME as string;
-    this.serverPort = parseInt(process.env.SERVER_PORT ?? "3001", 10);
-    this.apiUrl = `http://${this.serverHostname}:${this.serverPort}/` as string;
+    this.serverHostname = "192.168.0.54";
+    this.serverPort = 3001;
+    console.log("process env is ", process.env);
+    this.apiUrl = `http://${this.serverHostname}:${this.serverPort}` as string;
   }
 }
 

@@ -1,17 +1,31 @@
-import { post } from "./core/fetch";
+import { post, get } from "./core/fetch";
 import { TypeOfShot } from "../../enums/TypeOfShot";
 import { AngleOfShot } from "../../enums/AngleOfShot";
-import AppConfig from "../../../AppConfig";
 import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
+import AppConfig from "../../../AppConfig";
 
-const server = "http://192.168.0.139:3001";
-export const createVideoEntry = async (): Promise<IUploadedVideo> => {
+const server = AppConfig.apiUrl;
+console.log("server is ", server);
+
+export const getVideos = async (userId: string): Promise<any> => {
+  try {
+    const result = await get(`${server}/v1/video?userId=${userId}`);
+    return result;
+  } catch (err) {
+    console.warn("An error occurred in getVideos video", err);
+    throw err;
+  }
+};
+export const createVideoEntry = async (
+  typeOfShot: TypeOfShot,
+  angleOfShot: AngleOfShot
+): Promise<IUploadedVideo> => {
   const data = {
     userId: "test",
     name: "test name",
     description: "This is a temporary description",
-    angleOfShot: AngleOfShot.SIDE_ON,
-    typeOfShot: TypeOfShot.FREE_THROW,
+    angleOfShot,
+    typeOfShot,
     uploadedTimestamp: new Date(),
   };
 

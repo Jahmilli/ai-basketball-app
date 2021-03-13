@@ -18,7 +18,7 @@ const ListOptionWithIcon: FC<ListOptionWithIconProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.body}>
-        <Text>{title}</Text>
+        <Text style={styles.title}>{title}</Text>
         <Text>Selected: {selected || "None"}</Text>
       </View>
       <TouchableOpacity onPress={onPress}>

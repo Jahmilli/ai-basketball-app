@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  title: {
+    fontWeight: "bold",
+  },
   listItemIconLockup: {
     height: "100%",
     flex: 1,

@@ -37,7 +37,7 @@ const RecordShotOptionsScreen: FC<SelectAngleScreenProps> = ({
     <View style={styles.listItem}>
       <View style={styles.listItemBody}>
         <View style={styles.listItemTextLockup}>
-          <Text>{item.title}</Text>
+          <Text style={styles.title}>{item.title}</Text>
           <Text>{item.description}</Text>
         </View>
         <View style={styles.listItemIconLockup}>

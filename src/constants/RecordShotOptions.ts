@@ -14,7 +14,7 @@ export const anglesList: IRecordShotOption[] = [
   {
     id: AngleOfShot.FRONT_FACING,
     title: "Front facing",
-    description: "The player ",
+    description: "The player will be facing towards the camera",
     image: Icon, // TODO: Update with proper image
   },
   {

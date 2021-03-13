@@ -6,6 +6,8 @@ import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RecordShotSetupScreen from "./screens/RecordShotSetupScreen/RecordShotSetupScreen";
 import RecordShotOptionsScreen from "./screens/RecordShotOptionsScreen/RecordShotOptionsScreen";
 import RecordVideoScreen from "./screens/RecordVideoScreen/RecordVideoScreen";
+import OnboardingScreen from "./screens/OnboardingScreen/OnboardingScreen";
+import VideoFeedbackScreen from "./screens/VideoFeedback/VideoFeedback";
 
 const Stack = createStackNavigator();
 
@@ -19,9 +21,19 @@ const Routes = () => {
         options={{ title: "Login Screen" }}
       />
       <Stack.Screen
+        name="Onboarding"
+        component={OnboardingScreen}
+        options={{ title: "Onboarding Screen" }}
+      />
+      <Stack.Screen
         name="Home"
         component={HomeScreen}
         options={{ title: "Home Screen" }}
+      />
+      <Stack.Screen
+        name="VideoFeedback"
+        component={VideoFeedbackScreen}
+        options={{ title: "Feedback Screen" }}
       />
       <Stack.Screen
         name="RecordShotSetup"

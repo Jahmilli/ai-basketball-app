@@ -62,18 +62,22 @@ const RecordShotSetupScreen: FC<RecordShotSetupScreenProps> = ({
 
   const handleSelectContinue = () => {
     // TODO: Uncomment this when ready to use data in recorder...
-    // if (!typeOfShot || !angleOfShot) {
-    //   alert("Please complete all options before continuing...");
-    //   return;
-    // }
-    navigation.navigate("RecordVideo");
+    if (!typeOfShot || !angleOfShot) {
+      alert("Please complete all options before continuing...");
+      return;
+    }
+    navigation.navigate("RecordVideo", {
+      typeOfShot: typeOfShot ?? TypeOfShot.FREE_THROW,
+      angleOfShot: angleOfShot ?? AngleOfShot.FROM_THE_BACK,
+    });
   };
 
   return (
     <View style={styles.container}>
-      <Text>Record a shot!</Text>
-      <Text>Before we start recording, lets get setup.</Text>
-      <Text>Configure the below options</Text>
+      <Text style={styles.title}>Record a shot!</Text>
+      <Text style={styles.subheader1}>
+        Before we start recording, lets get setup.
+      </Text>
       <ListOptionWithIcon
         title="Select type of shot"
         selected={typeOfShot || ""}
