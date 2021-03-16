@@ -117,6 +117,7 @@ const Recorder: FC<RecorderProps> = ({
 
   const handleRecordingAndroid = async (uri: string) => {
     try {
+<<<<<<< HEAD
       console.log("creating asset");
       const result = await MediaLibrary.createAssetAsync(uri);
       console.log("result is ", result);
@@ -132,6 +133,15 @@ const Recorder: FC<RecorderProps> = ({
       // }
       // await handleSubmitVideo(resultAdditionalInfo.localUri);
       await handleSubmitVideo(result.uri);
+=======
+      const result = await MediaLibrary.createAssetAsync(uri);
+
+      const resultAdditionalInfo = await MediaLibrary.getAssetInfoAsync(result);
+      if (!resultAdditionalInfo.localUri) {
+        throw new Error("Missing localURI");
+      }
+      await handleSubmitVideo(resultAdditionalInfo.localUri);
+>>>>>>> master
       displaySuccessAlertMessage();
     } catch (err) {
       console.log("An error occurred in recording", err);
