@@ -9,14 +9,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase";
 import { UserContext } from "./src/context";
 
+// TODO: Use env variables for keys and IDs
 const firebaseConfig = {
-  apiKey: "AIzaSyBSMPdqB6OBMr1OwOvdAA1dT7S9QpFXvjs",
-  authDomain: "ai-basketball.firebaseapp.com",
-  projectId: "ai-basketball",
-  storageBucket: "ai-basketball.appspot.com",
-  messagingSenderId: "171317461139",
-  appId: "1:171317461139:web:b666da95c9571690624d66",
-  measurementId: "G-5C0HKGSJFX",
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+  measurementId: "",
 };
 
 if (firebase.apps.length === 0) {
