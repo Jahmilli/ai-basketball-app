@@ -1,35 +1,27 @@
-import React, { FC, useContext, useEffect, useState } from "react";
-import styles from "./LoginScreenStyles";
+import React, { FC, useState } from "react";
+import styles from "./styles";
 import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
 import { Button, View, Text } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types/types";
-import { UserContext } from "../../context";
-import { login } from "../../../utils/firebaseWrapper";
 import { validateEmail, validatePassword } from "../../../utils/helpers";
+import { createAccount } from "../../../utils/firebaseWrapper";
 
-type LoginScreenNavigationProp = StackNavigationProp<
+type CreateAccountScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  "Login"
+  "CreateAccount"
 >;
 
-type LoginScreenProps = {
-  navigation: LoginScreenNavigationProp;
+type CreateAccountScreenProps = {
+  navigation: CreateAccountScreenNavigationProp;
 };
 
-const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
-  const user = useContext(UserContext);
+const CreateAccountScreen: FC<CreateAccountScreenProps> = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!user) return;
-    navigation.navigate("Home");
-  }, [user]);
-
   const handleChangeText = (key: string) => (text: string) => {
     setUserDetails((currentDetails) => ({
       ...currentDetails,
@@ -37,13 +29,14 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
     }));
   };
 
-  const handleLogin = async (): Promise<void> => {
+  const handleCreateAccount = async () => {
     const email = userDetails.email.trim();
     const password = userDetails.password.trim();
     try {
       validateEmail(email);
       validatePassword(password);
-      await login(email, password);
+
+      await createAccount(email, password);
     } catch (err) {
       setErrorMessage(err.message);
     }
@@ -61,28 +54,10 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
         onChangeText={handleChangeText("password")}
         placeholder="Password"
       />
-      <Button title="LOG IN" onPress={handleLogin} />
+      <Button title="Create Account" onPress={handleCreateAccount} />
       <Text>{errorMessage}</Text>
-      <View style={styles.textWrapper}>
-        <Text style={styles.subText}>Forgot your password?</Text>
-        <Text
-          style={styles.subText}
-          onPress={() => navigation.navigate("ForgotPassword")}
-        >
-          Reset
-        </Text>
-      </View>
-      <View style={styles.textWrapper}>
-        <Text style={styles.subText}>Don't have an account?</Text>
-        <Text
-          style={styles.subText}
-          onPress={() => navigation.navigate("CreateAccount")}
-        >
-          Register
-        </Text>
-      </View>
     </View>
   );
 };
 
-export default LoginScreen;
+export default CreateAccountScreen;

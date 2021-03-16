@@ -17,16 +17,16 @@ export const getVideos = async (userId: string): Promise<any> => {
   }
 };
 export const createVideoEntry = async (
+  userId: string,
   typeOfShot: TypeOfShot,
   angleOfShot: AngleOfShot
 ): Promise<IUploadedVideo> => {
   const data = {
-    userId: "test",
-    name: "test name",
-    description: "This is a temporary description",
+    userId,
     angleOfShot,
     typeOfShot,
-    uploadedTimestamp: new Date(),
+    name: "test name",
+    description: "This is a temporary description",
   };
 
   try {
@@ -43,7 +43,7 @@ export const createVideoEntry = async (
 
 // Need to create a custom fetch function here as we're doing a multipart upload for video streaming...
 export const streamVideo = async (id: string, uri: string) => {
-  let options: any = {
+  const options: any = {
     headers: {},
     method: "POST",
   };

@@ -1,11 +1,7 @@
-import React, { FC, useEffect, useState } from "react";
-import styles from "./OnboardingScreenStyles";
-import { Button, Text, View, Image, Dimensions } from "react-native";
+import React, { FC, useState } from "react";
+import { Text, View, Image } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types/types";
-import { getVideos } from "../../logic/functions/uploadVideo";
-import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
-import { FlatList } from "react-native-gesture-handler";
 import Onboarding from "react-native-onboarding-swiper";
 
 type OnboardingScreenNavigationProp = StackNavigationProp<

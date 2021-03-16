@@ -4,6 +4,8 @@ import { IUploadedVideo } from "../interfaces/IUploadedVideo";
 
 export type RootStackParamList = {
   Login: undefined;
+  CreateAccount: undefined;
+  ForgotPassword: undefined;
   Onboarding: undefined;
   Home: undefined;
   RecordShotSetup:

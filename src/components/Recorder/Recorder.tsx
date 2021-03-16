@@ -36,11 +36,13 @@ type RecordVideoScreenNavigationProp = StackNavigationProp<
 
 type RecorderProps = {
   navigation: RecordVideoScreenNavigationProp;
+  userId: string;
   typeOfShot: TypeOfShot;
   angleOfShot: AngleOfShot;
 };
 
 const Recorder: FC<RecorderProps> = ({
+  userId,
   typeOfShot,
   angleOfShot,
   navigation,
@@ -48,9 +50,9 @@ const Recorder: FC<RecorderProps> = ({
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [cameraRef, setCameraRef] = useState<Camera | null>(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [recording, setRecording] = useState(false);
+  const [recording, seconstcording] = useState(false);
   const [recordingSecs, setRecordingSecs] = useState(0);
-  const MAX_RECORDING_TIME_SEC = 8;
+  const MAX_RECORDconst_TIME_SEC = 8;
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -170,6 +172,7 @@ const Recorder: FC<RecorderProps> = ({
   const handleSubmitVideo = async (uri: string) => {
     try {
       const result: IUploadedVideo = await createVideoEntry(
+        userId,
         typeOfShot,
         angleOfShot
       );
