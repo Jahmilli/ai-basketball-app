@@ -1,12 +1,13 @@
-import React, { FC, useContext, useEffect, useState } from "react";
-import styles from "./LoginScreenStyles";
-import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
-import { Button, View, Text } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types/types";
-import { UserContext } from "../../context";
+import React, { FC, useContext, useEffect, useState } from "react";
+import { Button, Text, View } from "react-native";
 import { login } from "../../../utils/firebaseWrapper";
 import { validateEmail, validatePassword } from "../../../utils/helpers";
+import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
+import { UserContext } from "../../context";
+import { RootStackParamList } from "../../types/types";
+import styles from "./LoginScreenStyles";
 
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -19,6 +20,7 @@ type LoginScreenProps = {
 
 const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
   const user = useContext(UserContext);
+  const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",
@@ -26,9 +28,12 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log("In login screen with user", user);
     if (!user) return;
     navigation.navigate("Home");
-  }, [user]);
+    // TODO: We should not really need isFocusedHere as its just so we can login back to Homescreen if user navigates away by pressing back..
+    // If user presses back, they should be alerted if they want to sign out and if they click yes then sign them out.
+  }, [user, isFocused]);
 
   const handleChangeText = (key: string) => (text: string) => {
     setUserDetails((currentDetails) => ({

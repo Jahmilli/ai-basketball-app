@@ -1,14 +1,13 @@
-import React, { FC, useContext, useEffect, useState } from "react";
-import styles from "./HomeScreenStyles";
-import { Button, Text, View } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types/types";
-import { getVideos } from "../../logic/functions/uploadVideo";
-import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
-import { FlatList } from "react-native-gesture-handler";
 import { useIsFocused } from "@react-navigation/native";
-import { signout } from "../../../utils/firebaseWrapper";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { FC, useContext, useEffect, useState } from "react";
+import { Button, Text, View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 import { UserContext } from "../../context";
+import { IVideo } from "../../interfaces/IVideo";
+import { getVideos } from "../../logic/functions/video";
+import { RootStackParamList } from "../../types/types";
+import styles from "./HomeScreenStyles";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type HomeScreenProps = {
@@ -45,21 +44,13 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     callGetVideos();
   }, [isFocused, user]);
 
-  const handleNavigateToVideoFeedback = (video: IUploadedVideo) => {
+  const handleNavigateToVideoFeedback = (video: IVideo) => {
     navigation.navigate("VideoFeedback", {
       video,
     });
   };
 
-  const handleSignout = async () => {
-    try {
-      await signout();
-    } catch (err) {
-      console.warn("An error occurred when signing out", err);
-    }
-  };
-
-  const renderItem = ({ item }: { item: IUploadedVideo }) => (
+  const renderItem = ({ item }: { item: IVideo }) => (
     <View style={styles.listItem}>
       <View style={styles.listItemBody}>
         <View style={styles.listItemTextLockup}>
@@ -96,7 +87,10 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
       <View style={styles.container}>
         <View style={styles.noUploadsLockup}>
           <Text style={styles.getStartedText}>Loading...</Text>
-          <Button title="Signout" onPress={handleSignout} />
+          <Button
+            title="Profile"
+            onPress={() => navigation.navigate("Profile")}
+          />
         </View>
       </View>
     );
@@ -104,7 +98,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Button title="Signout" onPress={handleSignout} />
+      <Button title="Profile" onPress={() => navigation.navigate("Profile")} />
       {videos.length > 0 ? (
         <>
           <View style={styles.uploadVideoLockup}>
@@ -115,7 +109,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
             data={videos}
             style={styles.list}
             renderItem={renderItem}
-            keyExtractor={(item: IUploadedVideo) => item.id}
+            keyExtractor={(item: IVideo) => item.id}
           />
         </>
       ) : (

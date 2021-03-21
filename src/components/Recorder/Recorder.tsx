@@ -1,33 +1,17 @@
-import React, { useState, useEffect, FC } from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Platform,
-  Alert,
-  PermissionsAndroid,
-} from "react-native";
-import * as MediaLibrary from "expo-media-library";
-import { Camera } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
-import styles from "./RecorderStyles";
-import {
-  createVideoEntry,
-  streamVideo,
-} from "../../logic/functions/uploadVideo";
-import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
-import { TypeOfShot } from "../../enums/TypeOfShot";
-import { AngleOfShot } from "../../enums/AngleOfShot";
-import { useInterval } from "../../hooks/useInterval";
-import { RouteProp } from "@react-navigation/native";
-import { RootStackParamList } from "../../types/types";
 import { StackNavigationProp } from "@react-navigation/stack";
-import CameraRoll from "@react-native-community/cameraroll";
-import {
-  IPermissionRequest,
-  requestPermissions,
-} from "../../../utils/AndroidPermissions";
+import { Camera } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
+import React, { FC, useEffect, useState } from "react";
+import { Alert, Platform, Text, TouchableOpacity, View } from "react-native";
+import { AngleOfShot } from "../../enums/AngleOfShot";
+import { TypeOfShot } from "../../enums/TypeOfShot";
+import { useInterval } from "../../hooks/useInterval";
+import { IVideo } from "../../interfaces/IVideo";
+import { createVideoEntry, streamVideo } from "../../logic/functions/video";
+import { RootStackParamList } from "../../types/types";
+import styles from "./RecorderStyles";
 
 type RecordVideoScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -50,16 +34,16 @@ const Recorder: FC<RecorderProps> = ({
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [cameraRef, setCameraRef] = useState<Camera | null>(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [recording, seconstcording] = useState(false);
+  const [recording, setRecording] = useState(false);
   const [recordingSecs, setRecordingSecs] = useState(0);
-  const MAX_RECORDconst_TIME_SEC = 8;
+  const MAX_RECORDING_TIME_SEC = 8;
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
-      let audioRecordingStatus = await Permissions.askAsync(
+      const audioRecordingStatus = await Permissions.askAsync(
         Permissions.AUDIO_RECORDING
       );
-      let cameraRollStatus = await Permissions.askAsync(
+      const cameraRollStatus = await Permissions.askAsync(
         Permissions.CAMERA_ROLL
       );
       setHasPermission(
@@ -171,7 +155,7 @@ const Recorder: FC<RecorderProps> = ({
 
   const handleSubmitVideo = async (uri: string) => {
     try {
-      const result: IUploadedVideo = await createVideoEntry(
+      const result: IVideo = await createVideoEntry(
         userId,
         typeOfShot,
         angleOfShot

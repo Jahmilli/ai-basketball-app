@@ -6,6 +6,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types/types";
 import { validateEmail, validatePassword } from "../../../utils/helpers";
 import { createAccount } from "../../../utils/firebaseWrapper";
+import { createUser } from "../../logic/functions/user";
 
 type CreateAccountScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -36,9 +37,24 @@ const CreateAccountScreen: FC<CreateAccountScreenProps> = ({ navigation }) => {
       validateEmail(email);
       validatePassword(password);
 
-      await createAccount(email, password);
+      const firebaseUser = await createAccount(email, password);
+
+      if (!firebaseUser) {
+        throw new Error("Unable to create user...");
+      }
+
+      firebaseUser.sendEmailVerification();
+
+      // Using non-null for email as we should always have email here...
+      await createUser({
+        id: firebaseUser.uid,
+        email: firebaseUser.email!,
+        firstName: "first",
+        lastName: "last",
+        dateOfBirth: Date.now(),
+      });
     } catch (err) {
-      setErrorMessage(err.message);
+      setErrorMessage("Could not create user");
     }
   };
 

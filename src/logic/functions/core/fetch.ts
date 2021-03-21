@@ -39,10 +39,11 @@ const coreFetch = async (
     } else {
       response = await fetch(url, init);
     }
+    const result = await response.json();
     if (response.ok) {
-      resolve(response.json());
+      resolve(result);
     } else {
-      reject(response.status);
+      reject(result);
     }
   });
 };

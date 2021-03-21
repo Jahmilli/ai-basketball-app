@@ -1,6 +1,6 @@
 import { AngleOfShot } from "../enums/AngleOfShot";
 import { TypeOfShot } from "../enums/TypeOfShot";
-import { IUploadedVideo } from "../interfaces/IUploadedVideo";
+import { IVideo } from "../interfaces/IVideo";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -8,6 +8,7 @@ export type RootStackParamList = {
   ForgotPassword: undefined;
   Onboarding: undefined;
   Home: undefined;
+  Profile: undefined;
   RecordShotSetup:
     | {
         id: AngleOfShot | TypeOfShot;
@@ -22,6 +23,6 @@ export type RootStackParamList = {
     angleOfShot: AngleOfShot;
   };
   VideoFeedback: {
-    video: IUploadedVideo;
+    video: IVideo;
   };
 };

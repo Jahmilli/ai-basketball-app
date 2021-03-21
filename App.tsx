@@ -8,17 +8,7 @@ import AppNavigator from "./src/AppNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import firebase from "firebase";
 import { UserContext } from "./src/context";
-
-// TODO: Use env variables for keys and IDs
-const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: "",
-  measurementId: "",
-};
+import { firebaseConfig } from "./firebaseConf";
 
 if (firebase.apps.length === 0) {
   // Initialize Firebase

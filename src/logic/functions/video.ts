@@ -1,15 +1,15 @@
-import { post, get } from "./core/fetch";
-import { TypeOfShot } from "../../enums/TypeOfShot";
-import { AngleOfShot } from "../../enums/AngleOfShot";
-import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
 import AppConfig from "../../../AppConfig";
+import { AngleOfShot } from "../../enums/AngleOfShot";
+import { TypeOfShot } from "../../enums/TypeOfShot";
+import { IVideo } from "../../interfaces/IVideo";
+import { get, post } from "./core/fetch";
 
 const server = AppConfig.apiUrl;
 console.log("server is ", server);
 
 export const getVideos = async (userId: string): Promise<any> => {
   try {
-    const result = await get(`${server}/v1/video?userId=${userId}`);
+    const result = await get(`${server}/v1/video/${userId}/`);
     return result;
   } catch (err) {
     console.warn("An error occurred in getVideos video", err);
@@ -20,7 +20,7 @@ export const createVideoEntry = async (
   userId: string,
   typeOfShot: TypeOfShot,
   angleOfShot: AngleOfShot
-): Promise<IUploadedVideo> => {
+): Promise<IVideo> => {
   const data = {
     userId,
     angleOfShot,
@@ -31,9 +31,9 @@ export const createVideoEntry = async (
 
   try {
     const result = (await post(
-      `${server}/v1/video/create`,
+      `${server}/v1/video`,
       JSON.stringify(data)
-    )) as IUploadedVideo;
+    )) as IVideo;
     return result;
   } catch (err) {
     console.warn("An error occurred in upload video", err);

@@ -3,7 +3,7 @@ import styles from "./VideoFeedbackStyles";
 import { Text, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types/types";
-import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
+import { IVideo } from "../../interfaces/IVideo";
 import { RouteProp } from "@react-navigation/native";
 
 type VideoFeedbackScreenRouteProp = RouteProp<
@@ -17,7 +17,7 @@ type VideoFeedbackScreenNavigationProp = StackNavigationProp<
 type VideoFeedbackScreenProps = {
   route: VideoFeedbackScreenRouteProp;
   navigation: VideoFeedbackScreenNavigationProp;
-  video: IUploadedVideo;
+  video: IVideo;
 };
 const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
   navigation,

@@ -10,6 +10,7 @@ import OnboardingScreen from "./screens/OnboardingScreen/OnboardingScreen";
 import VideoFeedbackScreen from "./screens/VideoFeedback/VideoFeedback";
 import CreateAccountScreen from "./screens/CreateAccountScreen/CreateAccountScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen/ForgotPasswordScreen";
+import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,11 @@ const screens = [
     name: "Home",
     component: HomeScreen,
     options: { title: "Home Screen" },
+  },
+  {
+    name: "Profile",
+    component: ProfileScreen,
+    options: { title: "Profile Screen" },
   },
   {
     name: "VideoFeedback",
