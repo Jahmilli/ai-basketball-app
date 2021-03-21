@@ -5,6 +5,7 @@ import { get, post } from "./core/fetch";
 const server = AppConfig.apiUrl;
 
 export const createUser = async (
+  // The following ommitted fields are expected to be generated from the backend
   user: Omit<IUser, "createdTimestamp" | "lastUpdated">
 ): Promise<void> => {
   try {

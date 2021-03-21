@@ -30,6 +30,12 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
   useEffect(() => {
     console.log("In login screen with user", user);
     if (!user) return;
+
+    // TODO: When we want to start making users have to verify first we can uncomment this...
+    // if (!user.emailVerified) {
+    //   alert("User is not verified!");
+    //   return;
+    // }
     navigation.navigate("Home");
     // TODO: We should not really need isFocusedHere as its just so we can login back to Homescreen if user navigates away by pressing back..
     // If user presses back, they should be alerted if they want to sign out and if they click yes then sign them out.

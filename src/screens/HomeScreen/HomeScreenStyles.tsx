@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     padding: 20,
     width: "100%",
     height: "100%",
-    // backgroundColor: "red",
   },
   noUploadsLockup: {
     height: "100%",
@@ -37,7 +36,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   listItem: {
-    // height: 225,
     width: "100%",
     marginTop: 10,
     borderColor: "black",

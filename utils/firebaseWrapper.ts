@@ -21,12 +21,19 @@ export const login = async (email: string, password: string) => {
 export const createAccount = async (
   email: string,
   password: string
-): Promise<firebase.User | null> => {
+): Promise<firebase.User> => {
   try {
     const createUserResult = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    return createUserResult.user;
+
+    const user = createUserResult.user;
+    if (!user) {
+      throw new Error("Unable to create user...");
+    }
+    user.sendEmailVerification();
+
+    return user;
   } catch (err) {
     switch (err.code) {
       case "auth/email-already-in-use":

@@ -1,12 +1,12 @@
-import React, { FC, useState } from "react";
-import styles from "./styles";
-import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
-import { Button, View, Text } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types/types";
-import { validateEmail, validatePassword } from "../../../utils/helpers";
+import React, { FC, useState } from "react";
+import { Button, Text, View } from "react-native";
 import { createAccount } from "../../../utils/firebaseWrapper";
+import { validateEmail, validatePassword } from "../../../utils/helpers";
+import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
 import { createUser } from "../../logic/functions/user";
+import { RootStackParamList } from "../../types/types";
+import styles from "./styles";
 
 type CreateAccountScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -39,15 +39,12 @@ const CreateAccountScreen: FC<CreateAccountScreenProps> = ({ navigation }) => {
 
       const firebaseUser = await createAccount(email, password);
 
-      if (!firebaseUser) {
-        throw new Error("Unable to create user...");
-      }
-
-      firebaseUser.sendEmailVerification();
-
-      // Using non-null for email as we should always have email here...
+      // TODO: Ideally we want users to be verified first, then we want them to go to a screen
+      // where they can fill in additional details about themselves in which case we would move
+      // this function elsewhere...
       await createUser({
         id: firebaseUser.uid,
+        // Using non-null for email as we use an email to create a user in Firebase. Therefore, this must exist!
         email: firebaseUser.email!,
         firstName: "first",
         lastName: "last",

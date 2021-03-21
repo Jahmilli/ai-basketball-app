@@ -56,8 +56,8 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <View style={styles.noUploadsLockup}>
-          <Text style={styles.getStartedText}>Loading...</Text>
+        <View>
+          <Text>Loading...</Text>
           <Button title="Signout" onPress={handleSignout} />
         </View>
       </View>
@@ -69,18 +69,14 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
       <Button title="Signout" onPress={handleSignout} />
       {userDetails !== null ? (
         <>
-          <Text style={styles.getStartedText}>Email: {userDetails.email}</Text>
-          <Text style={styles.getStartedText}>
-            First Name: {userDetails.firstName}
-          </Text>
-          <Text style={styles.getStartedText}>
-            Last Name: {userDetails.lastName}
-          </Text>
-          <Text style={styles.getStartedText}>
+          <Text>Email: {userDetails.email}</Text>
+          <Text>First Name: {userDetails.firstName}</Text>
+          <Text>Last Name: {userDetails.lastName}</Text>
+          <Text>
             Date of Birth:{" "}
             {new Date(userDetails.dateOfBirth).toLocaleDateString()}
           </Text>
-          <Text style={styles.getStartedText}>
+          <Text>
             Account Creation Date:{" "}
             {new Date(userDetails.createdTimestamp).toLocaleDateString()}
           </Text>

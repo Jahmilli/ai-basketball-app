@@ -9,7 +9,7 @@ console.log("server is ", server);
 
 export const getVideos = async (userId: string): Promise<any> => {
   try {
-    const result = await get(`${server}/v1/video/${userId}/`);
+    const result = await get(`${server}/v1/video/${userId}`);
     return result;
   } catch (err) {
     console.warn("An error occurred in getVideos video", err);
