@@ -1,3 +1,9 @@
+// TODO: Really shouldn't be returning S3 URI from backend but we can survive with it for now...
+// Example URI 's3://test-bucket/12312312-1231-1231-1231-123123123123.mp4',
+export const parseS3Uri = (uri: string) => {
+  return uri.replace(/s3:\/\/.*\//, "");
+};
+
 export const validateEmail = (email: string): void => {
   if (!email.includes("@")) {
     throw new Error("Invalid email");

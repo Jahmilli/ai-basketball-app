@@ -18,6 +18,14 @@ The following dependencies are required to run this application
 
 You will require the firebase config to be able to run the application. Please talk to a member in the team about getting this and save the config as a file named: `firebaseConf.ts`
 
+
+==== Cloudfront Content
+
+Useful Links:
+
+- https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-access-to-amazon-s3/
+- https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-overview.html
+
 === Local Development
 
 The following steps need to be followed to run the application:

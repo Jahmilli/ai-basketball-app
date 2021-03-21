@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
@@ -31,11 +32,14 @@ const Recorder: FC<RecorderProps> = ({
   angleOfShot,
   navigation,
 }) => {
+  const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [cameraRef, setCameraRef] = useState<Camera | null>(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [recording, setRecording] = useState(false);
   const [recordingSecs, setRecordingSecs] = useState(0);
+  const [videoUri, setVideoUri] = useState<string | null>(null);
+  const [didUploadVideo, setDidUploadVideo] = useState(false);
   const MAX_RECORDING_TIME_SEC = 8;
   useEffect(() => {
     (async () => {
@@ -61,6 +65,17 @@ const Recorder: FC<RecorderProps> = ({
       handleRecordingPress();
     }
   }, [recordingSecs]);
+
+  useEffect(() => {
+    if (!videoUri || !isFocused) return;
+    displayInitialSuccessAlertMessage(videoUri);
+  }, [videoUri, isFocused]);
+
+  useEffect(() => {
+    if (!didUploadVideo) return;
+
+    displayUploadSuccessAlertMessage();
+  }, [didUploadVideo]);
 
   useInterval(() => {
     if (recording) {
@@ -94,10 +109,14 @@ const Recorder: FC<RecorderProps> = ({
     }
     setRecording(true);
     const video = await cameraRef.recordAsync();
+    setVideoUri(video.uri);
+  };
+
+  const handleUploadVideo = async (uri: string) => {
     if (Platform.OS === "android") {
-      await handleRecordingAndroid(video.uri);
+      await handleRecordingAndroid(uri);
     } else {
-      await handleRecordingIOS(video.uri);
+      await handleRecordingIOS(uri);
     }
   };
 
@@ -110,7 +129,7 @@ const Recorder: FC<RecorderProps> = ({
         throw new Error("Missing localURI");
       }
       await handleSubmitVideo(resultAdditionalInfo.localUri);
-      displaySuccessAlertMessage();
+      setDidUploadVideo(true);
     } catch (err) {
       console.log("An error occurred in recording", err);
       alert("An error occurred when submitting video, try again!");
@@ -120,14 +139,38 @@ const Recorder: FC<RecorderProps> = ({
   const handleRecordingIOS = async (uri: string) => {
     try {
       await handleSubmitVideo(uri);
-      displaySuccessAlertMessage();
+      setDidUploadVideo(true);
     } catch (err) {
       console.log("An error occurred in recording", err);
       alert("An error occurred when submitting video, try again!");
     }
   };
 
-  const displaySuccessAlertMessage = () => {
+  const handleViewRecording = (uri: string) => {
+    navigation.navigate("VideoPlayer", {
+      uri,
+    });
+  };
+
+  const displayInitialSuccessAlertMessage = (uri: string) => {
+    Alert.alert("Recording Complete!", "", [
+      {
+        text: "Upload video",
+        onPress: () => handleUploadVideo(uri),
+      },
+      {
+        text: "View recording",
+        onPress: () => handleViewRecording(uri),
+      },
+      {
+        text: "Record another video",
+        onPress: () => setVideoUri(null),
+        style: "cancel",
+      },
+    ]);
+  };
+
+  const displayUploadSuccessAlertMessage = () => {
     Alert.alert(
       "Recording Complete!",
       "You recording has been uploaded and is currently processing. Check soon for your results",
@@ -138,7 +181,10 @@ const Recorder: FC<RecorderProps> = ({
         },
         {
           text: "Record another video",
-          onPress: () => console.log("Cancel Pressed"),
+          onPress: () => {
+            setDidUploadVideo(false);
+            console.log("Cancel Pressed");
+          },
           style: "cancel",
         },
       ]
