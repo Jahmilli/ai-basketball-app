@@ -7,7 +7,7 @@ class AppConfig {
   constructor() {
     this.serverHostname = "192.168.0.42";
     this.serverPort = 3001;
-    this.s3Hostname = "https://aibasketball.s3-ap-southeast-2.amazonaws.com";
+    this.s3Hostname = "https://d3hd0ynhvivxt6.cloudfront.net";
     console.log("process env is ", process.env);
     this.apiUrl = `http://${this.serverHostname}:${this.serverPort}` as string;
   }

@@ -42,6 +42,28 @@ To do this, when you startup expo (via Android or IOS), you should expect that y
 Take this IP address and replace `serverHostname` in AppConfig.ts with it. EG `serverHostname=192.168.0.1`.
 
 
+=== Manual Project Setup
+
+Note: We should not really be doing anything manually to setup the project.
+
+==== Firebase Project Setup
+
+1. Navigate to: https://console.firebase.google.com/
+2. Click 'Add project' (Fill in options to create project)
+3. When the project is setup, go to 'Project Settings'
+4. Click 'Add app' and click on the `</>` icon.
+5. Name the project, and fill out the inputs to create the app!
+
+==== AWS Setup
+
+__Note:__ The following setup will need to be templated into Cloudformation or Terraform
+
+1. Setup S3 bucket named 'aibasketball' (or something similar)
+2. Setup Cloudfront distribution for the bucket
+3. Setup policy in IAM to write to S3
+4. Setup a user in IAM with programmatic access only that uses the policy created
+5. Save the access token and secret access token locally (This will need to be used by the app)
+
 == Conventions
 
 === Directory structure
