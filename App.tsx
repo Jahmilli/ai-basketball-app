@@ -1,41 +1,50 @@
-import React, { createContext } from "react";
+// @refresh reset
+
+import React, { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import useCachedResources from "./src/hooks/useCachedResources";
 import AppNavigator from "./src/AppNavigator";
 import { NavigationContainer } from "@react-navigation/native";
-// import { AuthContextWrapper } from "./src/context/AuthContext";
+import firebase from "firebase";
+import { UserContext } from "./src/context";
+import { firebaseConfig } from "./firebaseConf";
+
+if (firebase.apps.length === 0) {
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+}
 
 const App = () => {
-  // React.useEffect(() => {
-  //   async function getUserDetails() {
-  //     const metaData: any = await auth.readUserMetaData();
-  //     if (metaData && metaData.isStudent) {
-  //       try {
-  //         const details = await getStudentDetails(metaData._id);
-  //         setUserDetails(details);
-  //       } catch (err) {
-  //         console.error('An error occurred when getting student details', err);
-  //       }
-  //     }
-  //   }
-  //   getUserDetails();
-  // }, [auth]);
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState<firebase.User | null>(null);
+
+  // Handle user state changes
+  function onAuthStateChanged(user: firebase.User | null) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
 
   const isLoadingComplete = useCachedResources();
   if (!isLoadingComplete) {
     return null;
-  } else {
-    return (
-      <SafeAreaProvider>
-        <NavigationContainer>
-          {/* <AuthContextWrapper> */}
-          <AppNavigator />
-          {/* </AuthContextWrapper> */}
-        </NavigationContainer>
-      </SafeAreaProvider>
-    );
   }
+
+  return (
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <UserContext.Provider value={user}>
+          <AppNavigator />
+        </UserContext.Provider>
+      </NavigationContainer>
+    </SafeAreaProvider>
+  );
 };
 
 export default App;

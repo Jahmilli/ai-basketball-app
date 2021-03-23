@@ -1,12 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
-import styles from "./OnboardingScreenStyles";
-import { Button, Text, View, Image, Dimensions } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types/types";
-import { getVideos } from "../../logic/functions/uploadVideo";
-import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
-import { FlatList } from "react-native-gesture-handler";
+import React, { FC } from "react";
+import { Image, Text, View } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
+import { RootStackParamList } from "../../types/types";
 
 type OnboardingScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -16,7 +12,6 @@ type OnboardingScreenProps = {
   navigation: OnboardingScreenNavigationProp;
 };
 const OnboardingScreen: FC<OnboardingScreenProps> = ({ navigation }) => {
-  const [videos, setVideos] = useState([]);
   const handleCompleteOnboarding = () => {
     navigation.navigate("Home");
   };

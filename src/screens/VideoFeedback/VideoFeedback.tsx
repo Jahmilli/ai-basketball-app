@@ -1,12 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import styles from "./VideoFeedbackStyles";
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types/types";
-import { getVideos } from "../../logic/functions/uploadVideo";
-import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
-import { FlatList } from "react-native-gesture-handler";
-import { RouteProp, useIsFocused } from "@react-navigation/native";
+import { IVideo } from "../../interfaces/IVideo";
+import { RouteProp } from "@react-navigation/native";
 
 type VideoFeedbackScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -19,7 +17,7 @@ type VideoFeedbackScreenNavigationProp = StackNavigationProp<
 type VideoFeedbackScreenProps = {
   route: VideoFeedbackScreenRouteProp;
   navigation: VideoFeedbackScreenNavigationProp;
-  video: IUploadedVideo;
+  video: IVideo;
 };
 const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
   navigation,
@@ -41,28 +39,28 @@ const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
         <View style={styles.textLockup}>
           <Text style={styles.textTitle}>Processed status: </Text>
           <Text style={styles.textValue}>
-            {video.is_processed ? "Complete" : "Pending"}
+            {video.isProcessed ? "Complete" : "Pending"}
           </Text>
         </View>
         <View style={styles.textLockup}>
           <Text style={styles.textTitle}>Uploaded date: </Text>
           <Text style={styles.textValue}>
-            {new Date(video.uploaded_timestamp).toLocaleDateString()}
+            {new Date(video.createdTimestamp).toLocaleDateString()}
           </Text>
         </View>
         <View style={styles.textLockup}>
           <Text style={styles.textTitle}>Uploaded time: </Text>
           <Text style={styles.textValue}>
-            {new Date(video.uploaded_timestamp).toLocaleTimeString()}
+            {new Date(video.createdTimestamp).toLocaleTimeString()}
           </Text>
         </View>
         <View style={styles.textLockup}>
           <Text style={styles.textTitle}>Type of Shot: </Text>
-          <Text style={styles.textValue}>{video.type_of_shot}</Text>
+          <Text style={styles.textValue}>{video.typeOfShot}</Text>
         </View>
         <View style={styles.textLockup}>
           <Text style={styles.textTitle}>Angle of Shot: </Text>
-          <Text style={styles.textValue}>{video.angle_of_shot}</Text>
+          <Text style={styles.textValue}>{video.angleOfShot}</Text>
         </View>
         <View style={styles.textLockup}>
           <Text style={styles.textTitle}>

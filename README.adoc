@@ -13,6 +13,11 @@ The following dependencies are required to run this application
 . expo-cli (To download this, run: `npm install expo-cli --global`)
 . expo application on your mobile device (Check the IOS or Android App Store)
 
+
+==== Firebase Config
+
+You will require the firebase config to be able to run the application. Please talk to a member in the team about getting this and save the config as a file named: `firebaseConf.ts`
+
 === Local Development
 
 The following steps need to be followed to run the application:
