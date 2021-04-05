@@ -3,6 +3,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC } from "react";
 import { Button, Text, View } from "react-native";
 import AppConfig from "../../../AppConfig";
+import { parseS3Uri } from "../../../utils/helpers";
 import { IVideo } from "../../interfaces/IVideo";
 import { RootStackParamList } from "../../types/types";
 import styles from "./VideoFeedbackStyles";
@@ -91,8 +92,8 @@ const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
             title="View Video"
             onPress={() =>
               navigation.navigate("VideoPlayer", {
-                // uri: `${AppConfig.s3Hostname}/${parseS3Uri(video.storageUri)}`,
-                uri: `${AppConfig.s3Hostname}/46f487d3-8128-45aa-81bf-f74afc2f3420.mp4`,
+                uri: `${AppConfig.s3Hostname}/${parseS3Uri(video.storageUri)}`,
+                // uri: `${AppConfig.s3Hostname}/46f487d3-8128-45aa-81bf-f74afc2f3420.mp4`,
               })
             }
           />
