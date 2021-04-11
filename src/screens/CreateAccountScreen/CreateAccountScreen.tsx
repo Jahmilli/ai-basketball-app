@@ -1,10 +1,13 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { createAccount } from "../../../utils/firebaseWrapper";
 import { validateEmail, validatePassword } from "../../../utils/helpers";
+import { PrimaryButton } from "../../components/Button/Button";
 import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
+import { TextStyle } from "../../components/Styled/Styled";
 import { createUser } from "../../logic/functions/user";
+import { lightTheme } from "../../styles/theme.styles";
 import { RootStackParamList } from "../../types/types";
 import styles from "./styles";
 
@@ -67,8 +70,15 @@ const CreateAccountScreen: FC<CreateAccountScreenProps> = ({ navigation }) => {
         onChangeText={handleChangeText("password")}
         placeholder="Password"
       />
-      <Button title="Create Account" onPress={handleCreateAccount} />
+      <PrimaryButton onPress={handleCreateAccount} text="SIGN UP" />
       <Text>{errorMessage}</Text>
+      <TextStyle
+        color={lightTheme.SECONDARY_TEXT_COLOR}
+        fontWeight="bold"
+        onPress={() => navigation.goBack()}
+      >
+        Already have an account? Go back
+      </TextStyle>
     </View>
   );
 };

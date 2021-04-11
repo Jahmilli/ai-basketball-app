@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
+import { NavigationHeader } from "./components/NavigationHeader/NavigationHeader";
 import CreateAccountScreen from "./screens/CreateAccountScreen/CreateAccountScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen/ForgotPasswordScreen";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
@@ -18,57 +19,86 @@ const screens = [
   {
     name: "Login",
     component: LoginScreen,
-    options: { title: "Login Screen" },
+    // options: { title: "Login Screen" },
+    options: (props: any) => ({
+      headerTitle: () => (
+        <NavigationHeader
+          title="Login"
+          rightButton={{
+            title: "Sign Up",
+            onPress: () => {
+              props.navigation.navigate("CreateAccount");
+            },
+          }}
+        />
+      ),
+    }),
   },
   {
     name: "CreateAccount",
     component: CreateAccountScreen,
-    options: { title: "Create Account Screen" },
+    options: (props: any) => ({
+      headerTitle: () => <NavigationHeader title="Sign Up" />,
+    }),
   },
   {
     name: "ForgotPassword",
     component: ForgotPasswordScreen,
-    options: { title: "Forgot Password Screen" },
+    options: (props: any) => ({ title: "Forgot Password" }),
   },
   {
     name: "Onboarding",
     component: OnboardingScreen,
-    options: { title: "Onboarding Screen" },
+    options: (props: any) => ({ title: "Onboarding" }),
   },
   {
     name: "Home",
     component: HomeScreen,
-    options: { title: "Home Screen" },
+    options: (props: any) => ({
+      headerLeft: null,
+      gesturesEnabled: false,
+      headerTitle: () => (
+        <NavigationHeader
+          title="Player Profile"
+          rightButton={{
+            title: "Settings",
+            onPress: () => {
+              props.navigation.navigate("Profile");
+            },
+          }}
+        />
+      ),
+    }),
   },
   {
     name: "Profile",
     component: ProfileScreen,
-    options: { title: "Profile Screen" },
+    options: (props: any) => ({ title: "Profile Screen" }),
   },
   {
     name: "VideoFeedback",
     component: VideoFeedbackScreen,
-    options: { title: "Feedback Screen" },
+    options: (props: any) => ({ title: "Feedback" }),
   },
   {
     name: "RecordShotSetup",
     component: RecordShotSetupScreen,
-    options: { title: "Record Shot Setup Screen" },
+    options: (props: any) => ({ title: "Record" }),
   },
   {
     name: "RecordShotOptions",
     component: RecordShotOptionsScreen,
-    options: { title: "Select Angle Setup Screen" },
+    options: (props: any) => ({ title: "Select Angle" }),
   },
   {
     name: "RecordVideo",
     component: RecordVideoScreen,
-    options: { title: "Record Video Screen" },
+    options: (props: any) => ({ title: "Record Video" }),
   },
   {
     name: "VideoPlayer",
     component: VideoPlayerScreen,
-    options: { title: "Video Player" },
+    options: (props: any) => ({ title: "Video Player" }),
   },
 ];
 

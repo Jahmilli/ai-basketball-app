@@ -1,13 +1,12 @@
-import React, { FC, useState } from "react";
-import styles from "./styles";
-import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
-import { Button, View, Text } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types/types";
+import React, { FC, useState } from "react";
+import { Text, View } from "react-native";
+import { sendPasswordResetEmail } from "../../../utils/firebaseWrapper";
 import { validateEmail } from "../../../utils/helpers";
-import {
-  sendPasswordResetEmail,
-} from "../../../utils/firebaseWrapper";
+import { PrimaryButton } from "../../components/Button/Button";
+import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
+import { RootStackParamList } from "../../types/types";
+import styles from "./styles";
 
 type ForgotPasswordScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -44,8 +43,9 @@ const ForgotPasswordScreen: FC<ForgotPasswordScreenProps> = ({
         value={email}
         onChangeText={handleChangeText}
         placeholder="Email"
+        keyboardType="email-address"
       />
-      <Button title="Reset Password" onPress={handleForgotPassword} />
+      <PrimaryButton onPress={handleForgotPassword} text="RESET PASSWORD" />
       <Text>{errorMessage}</Text>
     </View>
   );

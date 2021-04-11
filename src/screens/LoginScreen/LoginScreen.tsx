@@ -1,11 +1,14 @@
 import { useIsFocused } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useContext, useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { login } from "../../../utils/firebaseWrapper";
 import { validateEmail, validatePassword } from "../../../utils/helpers";
+import { PrimaryButton } from "../../components/Button/Button";
 import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
+import { TextStyle } from "../../components/Styled/Styled";
 import { UserContext } from "../../context";
+import { lightTheme } from "../../styles/theme.styles";
 import { RootStackParamList } from "../../types/types";
 import styles from "./LoginScreenStyles";
 
@@ -65,34 +68,32 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
         value={userDetails.email}
         onChangeText={handleChangeText("email")}
         placeholder="Email"
+        keyboardType="email-address"
       />
       <CustomTextInput
         value={userDetails.password}
         onChangeText={handleChangeText("password")}
         placeholder="Password"
+        secureTextEntry
       />
-      <Button title="LOG IN" onPress={handleLogin} />
+      <PrimaryButton onPress={handleLogin} text="LOGIN" />
       <Text>{errorMessage}</Text>
       <View style={styles.textWrapper}>
-        <Text style={styles.subText}>Forgot your password?</Text>
-        <Text
-          style={styles.subText}
+        <TextStyle
+          color={lightTheme.SECONDARY_TEXT_COLOR}
+          fontWeight="bold"
           onPress={() => navigation.navigate("ForgotPassword")}
         >
-          Reset
-        </Text>
-      </View>
-      <View style={styles.textWrapper}>
-        <Text style={styles.subText}>Don't have an account?</Text>
-        <Text
-          style={styles.subText}
-          onPress={() => navigation.navigate("CreateAccount")}
-        >
-          Register
-        </Text>
+          Forgot your password?
+        </TextStyle>
       </View>
     </View>
   );
+};
+
+// @ts-ignore
+LoginScreen.navigationOptions = {
+  title: "Create Workout",
 };
 
 export default LoginScreen;

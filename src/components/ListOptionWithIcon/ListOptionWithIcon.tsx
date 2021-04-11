@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import styles from "./ListOptionWithIconStyles";
-import { Image, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Image, View } from "react-native";
+import { lightTheme } from "../../styles/theme.styles";
+import styles, { Container, Key, Value } from "./ListOptionWithIconStyles";
 
 type ListOptionWithIconProps = {
   title: string;
@@ -16,15 +16,16 @@ const ListOptionWithIcon: FC<ListOptionWithIconProps> = ({
   icon,
 }) => {
   return (
-    <View style={styles.container}>
+    <Container
+      borderColor={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
+      onPress={onPress}
+    >
       <View style={styles.body}>
-        <Text style={styles.title}>{title}</Text>
-        <Text>Selected: {selected || "None"}</Text>
+        <Key style={styles.title}>{title}</Key>
+        <Value>{selected || "None"}</Value>
       </View>
-      <TouchableOpacity onPress={onPress}>
-        <Image style={styles.icon} source={icon} />
-      </TouchableOpacity>
-    </View>
+      <Image style={styles.icon} source={icon} />
+    </Container>
   );
 };
 

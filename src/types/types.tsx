@@ -16,7 +16,7 @@ export type RootStackParamList = {
     | undefined;
   RecordShotOptions: {
     screen: keyof RootStackParamList;
-    options: any;
+    options: any[];
   };
   RecordVideo: {
     typeOfShot: TypeOfShot;

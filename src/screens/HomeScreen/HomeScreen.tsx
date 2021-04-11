@@ -1,10 +1,11 @@
 import { useIsFocused } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useContext, useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { Text, View } from "react-native";
+import { TitleStyle } from "../../components/Styled/Styled";
+import { Tabs } from "../../components/Tabs/Tabs";
+import { UploadedVideos } from "../../components/UploadedVideos/UploadedVideos";
 import { UserContext } from "../../context";
-import { IVideo } from "../../interfaces/IVideo";
 import { getVideos } from "../../logic/functions/video";
 import { RootStackParamList } from "../../types/types";
 import styles from "./HomeScreenStyles";
@@ -13,14 +14,19 @@ type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type HomeScreenProps = {
   navigation: HomeScreenNavigationProp;
 };
+
+enum TabTitles {
+  STATS = "STATS",
+  VIDEOS = "VIDEOS",
+}
+const tabs = [TabTitles.STATS, TabTitles.VIDEOS];
+
 const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const user = useContext(UserContext);
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const handleNavigate = () => {
-    navigation.navigate("RecordShotSetup");
-  };
+  const [currentTab, setCurrentTab] = useState(tabs[0]);
 
   useEffect(() => {
     if (!user) {
@@ -44,88 +50,42 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     callGetVideos();
   }, [isFocused, user]);
 
-  const handleNavigateToVideoFeedback = (video: IVideo) => {
-    navigation.navigate("VideoFeedback", {
-      video,
-    });
+  const renderSelectedContent = (currentTab: TabTitles) => {
+    switch (currentTab) {
+      case TabTitles.STATS:
+        return <TitleStyle>Coming Soon...</TitleStyle>;
+      case TabTitles.VIDEOS:
+        return <UploadedVideos videos={videos} navigation={navigation} />;
+      default:
+        return (
+          <TitleStyle>You shouldn't have been able to get here...</TitleStyle>
+        );
+    }
   };
-
-  const renderItem = ({ item }: { item: IVideo }) => (
-    <View style={styles.listItem}>
-      <View style={styles.listItemBody}>
-        <View style={styles.listItemTextLockup}>
-          <View style={styles.listItemTitleLockup}>
-            <Text style={styles.title}>{item.name}</Text>
-          </View>
-          <Text>{item.description}</Text>
-          <Text>
-            Uploaded date:{" "}
-            {new Date(item.createdTimestamp).toLocaleDateString()}
-          </Text>
-          <Text>
-            Uploaded time:{" "}
-            {new Date(item.createdTimestamp).toLocaleTimeString()}
-          </Text>
-          <Text>
-            Processed status: {item.isProcessed ? "Complete" : "Pending"}
-          </Text>
-          {!item.isProcessed ? (
-            <View style={styles.viewFeedbackLockup}>
-              <Button
-                title="View Feedback"
-                onPress={() => handleNavigateToVideoFeedback(item)}
-              />
-            </View>
-          ) : null}
-        </View>
-      </View>
-    </View>
-  );
 
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <View style={styles.noUploadsLockup}>
-          <Text style={styles.getStartedText}>Loading...</Text>
-          <Button
-            title="Profile"
-            onPress={() => navigation.navigate("Profile")}
-          />
-        </View>
+        <Text>Loading...</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <Button title="Profile" onPress={() => navigation.navigate("Profile")} />
-      {videos.length > 0 ? (
-        <>
-          <View style={styles.uploadVideoLockup}>
-            <Text style={styles.uploadVideoText}>Upload another video?</Text>
-            <Button title="Record Shot" onPress={handleNavigate} />
-          </View>
-          <FlatList
-            data={videos}
-            style={styles.list}
-            renderItem={renderItem}
-            keyExtractor={(item: IVideo) => item.id}
-          />
-        </>
-      ) : (
-        <View style={styles.noUploadsLockup}>
-          <Text style={styles.getStartedText}>
-            Looks like you haven't uploaded videos yet!
-          </Text>
-          <Button title="Get Started!" onPress={handleNavigate} />
-          {/* <TouchableOpacity
-          style={styles.getStartedButton}
-          onPress={handleNavigate}
-        >
-          <Text>Get</Text>
-          </TouchableOpacity> */}
-        </View>
-      )}
+      <Tabs
+        items={tabs}
+        onTabSelect={(key: any) => setCurrentTab(key)}
+        currentSelectedTab={currentTab}
+      />
+      <View
+        style={{
+          width: "100%",
+          height: "90%",
+        }}
+      >
+        {renderSelectedContent(currentTab)}
+      </View>
     </View>
   );
 };
