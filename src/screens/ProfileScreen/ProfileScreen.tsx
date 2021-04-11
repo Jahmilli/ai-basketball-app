@@ -4,7 +4,7 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
 import { signout } from "../../../utils/firebaseWrapper";
 import { UserContext } from "../../context";
-import { IUser } from "../../interfaces/IUser";
+import { IUserDetails } from "../../interfaces/IUser";
 import { getUser } from "../../logic/functions/user";
 import { RootStackParamList } from "../../types/types";
 import styles from "./styles";
@@ -18,12 +18,12 @@ type ProfileScreenProps = {
 };
 const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
   const user = useContext(UserContext);
-  const [userDetails, setUserDetails] = useState<IUser | null>(null);
+  const [userDetails, setUserDetails] = useState<IUserDetails | null>(null);
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!user) {
+    if (!user.firebaseUserInfo) {
       return navigation.navigate("Login");
     }
     if (isLoading) {
@@ -31,9 +31,11 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
     }
 
     const callGetUser = async () => {
+      if (!user.firebaseUserInfo) return;
+
       try {
         setIsLoading(true);
-        const result = await getUser(user.uid);
+        const result = await getUser(user.firebaseUserInfo?.uid);
         console.log("result is ", result);
         setUserDetails(result);
       } catch (err) {

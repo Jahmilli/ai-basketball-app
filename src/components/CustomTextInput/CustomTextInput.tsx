@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { KeyboardTypeOptions, View } from "react-native";
+import { KeyboardTypeOptions } from "react-native";
 import { lightTheme } from "../../styles/theme.styles";
-import { InputStyle } from "../Styled/Styled";
-import styles from "./styles";
+import { InputLabelTextStyle, InputStyle } from "../Styled/Styled";
+import { TextInputContainer } from "./styles";
 
 type CustomTextInputProps = {
   value: string;
@@ -10,6 +10,7 @@ type CustomTextInputProps = {
   placeholder: string;
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions;
+  label?: string;
 };
 
 const CustomTextInput: FC<CustomTextInputProps> = ({
@@ -18,9 +19,11 @@ const CustomTextInput: FC<CustomTextInputProps> = ({
   placeholder,
   secureTextEntry,
   keyboardType = "default",
+  label,
 }) => {
   return (
-    <View style={styles.inputContainer}>
+    <TextInputContainer>
+      {label && <InputLabelTextStyle color="gray">{label}</InputLabelTextStyle>}
       <InputStyle
         onChangeText={(text) => onChangeText(text)}
         value={value}
@@ -31,7 +34,7 @@ const CustomTextInput: FC<CustomTextInputProps> = ({
         secureTextEntry={secureTextEntry}
         // color={lightTheme.INPUT_COLOR}
       />
-    </View>
+    </TextInputContainer>
   );
 };
 

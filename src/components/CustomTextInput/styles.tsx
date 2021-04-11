@@ -1,9 +1,6 @@
-import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
 
-const styles = StyleSheet.create({
-  inputContainer: {
-    width: "100%",
-  },
-});
-
-export default styles;
+export const TextInputContainer = styled.View`
+  width: 100%;
+  margin: 10px 0;
+`;

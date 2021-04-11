@@ -26,7 +26,7 @@ const RecordVideoScreen: FC<RecordVideoScreenProps> = ({
   const { typeOfShot, angleOfShot } = route.params;
   const user = useContext(UserContext);
 
-  if (!user) {
+  if (!user.firebaseUserInfo) {
     navigation.navigate("Login");
     return null;
   }
@@ -34,7 +34,7 @@ const RecordVideoScreen: FC<RecordVideoScreenProps> = ({
   return (
     <View style={styles.container}>
       <Recorder
-        userId={user.uid}
+        userId={user.firebaseUserInfo.uid}
         typeOfShot={typeOfShot}
         angleOfShot={angleOfShot}
         navigation={navigation}

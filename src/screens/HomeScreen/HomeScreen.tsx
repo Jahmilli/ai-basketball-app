@@ -21,6 +21,8 @@ enum TabTitles {
 }
 const tabs = [TabTitles.STATS, TabTitles.VIDEOS];
 
+// TODO: Prevent users from being able to press backbutton...
+
 const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const user = useContext(UserContext);
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
@@ -29,7 +31,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
 
   useEffect(() => {
-    if (!user) {
+    if (!user.firebaseUserInfo) {
       return navigation.navigate("Login");
     }
     if (isLoading) {
@@ -37,9 +39,11 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     }
 
     const callGetVideos = async () => {
+      if (!user.firebaseUserInfo) return;
+
       try {
         setIsLoading(true);
-        const videos = await getVideos(user.uid);
+        const videos = await getVideos(user.firebaseUserInfo.uid);
         setVideos(videos);
       } catch (err) {
         console.log("An error occurred when getting videos", err);

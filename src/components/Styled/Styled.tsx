@@ -14,9 +14,8 @@ export const TextContainerStyle = styled.View`
 `;
 
 export const TitleStyle = styled.Text`
-  padding: 20px;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: bold;
   color: ${(props: any) => props.color ?? "black"};
 `;
 
@@ -26,8 +25,13 @@ export const TextStyle = styled.Text`
   color: ${(props: any) => props.color ?? "black"};
 `;
 
+export const InputLabelTextStyle = styled.Text`
+  font-size: 14px;
+  color: ${(props: any) => props.color ?? "black"};
+  margin: 0;
+`;
+
 export const InputStyle = styled.TextInput`
-  margin: 10px 0;
   padding: 5px 10px;
   width: 100%;
   height: 50px;

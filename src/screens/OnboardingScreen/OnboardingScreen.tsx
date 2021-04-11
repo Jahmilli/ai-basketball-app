@@ -1,8 +1,10 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { FC } from "react";
-import { Image, Text, View } from "react-native";
-import Onboarding from "react-native-onboarding-swiper";
+import React, { FC, useContext, useState } from "react";
+import { View } from "react-native";
+import { UserContext } from "../../context";
 import { RootStackParamList } from "../../types/types";
+import { OnboardingInitialScreen } from "./OnboardingInitialScreen";
+import { OnboardingUserCreation } from "./OnboardingUserCreation";
 
 type OnboardingScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -11,131 +13,64 @@ type OnboardingScreenNavigationProp = StackNavigationProp<
 type OnboardingScreenProps = {
   navigation: OnboardingScreenNavigationProp;
 };
+
+enum Page {
+  INITIAL,
+  FIRST_TIME_USER,
+  USER_CREATION,
+}
+
 const OnboardingScreen: FC<OnboardingScreenProps> = ({ navigation }) => {
-  const handleCompleteOnboarding = () => {
-    navigation.navigate("Home");
+  const user = useContext(UserContext);
+
+  const [currentPage, setCurrentPage] = useState<Page>(Page.INITIAL);
+
+  const handlePageChange = (page: Page) => {
+    setCurrentPage(page);
   };
 
-  return (
-    <Onboarding
-      onDone={handleCompleteOnboarding}
-      onSkip={handleCompleteOnboarding}
-      imageContainerStyles={{ margin: 0, padding: 0 }}
-      pages={[
-        {
-          backgroundColor: "#fff",
-          image: (
-            <View
-              style={{
-                backgroundColor: "black",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-                width: "100%",
-              }}
-            >
-              <Image
-                style={{
-                  height: "60%",
-                  resizeMode: "contain",
-                }}
-                source={require("../../../assets/images/basketball-1.jpg")}
-              />
-              <Text
-                style={{
-                  marginTop: 10,
-                  padding: 0,
-                  color: "white",
-                  fontSize: 20,
-                  textAlign: "center",
-                }}
-              >
-                I am great at free throws. Seriously, free throws are, like, my
-                best thing.
-              </Text>
-            </View>
-          ),
-          title: "",
-          subtitle: "",
-        },
-        {
-          backgroundColor: "#fff",
-          image: (
-            <View
-              style={{
-                backgroundColor: "black",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-                width: "100%",
-              }}
-            >
-              <Image
-                style={{
-                  height: "60%",
-                  width: "100%",
-                  resizeMode: "center",
-                }}
-                source={require("../../../assets/images/the-rock.jpg")}
-              />
-              <Text
-                style={{
-                  marginTop: 10,
-                  padding: 0,
-                  color: "white",
-                  fontSize: 20,
-                  textAlign: "center",
-                }}
-              >
-                See you in the 🏀 NBA 🏀 Champ 😉
-              </Text>
-            </View>
-          ),
-          title: "",
-          subtitle: "",
-        },
-        {
-          backgroundColor: "#fff",
-          image: (
-            <View
-              style={{
-                backgroundColor: "black",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-                width: "100%",
-              }}
-            >
-              <Image
-                style={{
-                  height: "60%",
-                  width: "100%",
-                  resizeMode: "center",
-                }}
-                source={require("../../../assets/images/ben.jpg")}
-              />
-              <Text
-                style={{
-                  marginTop: 10,
-                  padding: 0,
-                  color: "white",
-                  fontSize: 20,
-                  textAlign: "center",
-                }}
-              >
-                Built with ❤ by the AI Basketball Analytics
-              </Text>
-            </View>
-          ),
-          title: "",
-          subtitle: "",
-        },
-      ]}
-    />
-  );
+  const handleUserCreated = () => {
+    navigation.navigate("Home"); // TODO: Navigate to 'Find your Rank' Screen
+  };
+
+  const renderContent = () => {
+    console.log("user is ", user);
+    switch (currentPage) {
+      case Page.INITIAL:
+        return (
+          <OnboardingInitialScreen
+            handleNewUser={() => handlePageChange(Page.USER_CREATION)}
+            handlePreviousUser={() => handlePageChange(Page.USER_CREATION)}
+          />
+        );
+      case Page.FIRST_TIME_USER:
+        return (
+          <OnboardingInitialScreen
+            handleNewUser={() => handlePageChange(Page.FIRST_TIME_USER)}
+            handlePreviousUser={() => handlePageChange(Page.FIRST_TIME_USER)}
+          />
+        );
+      case Page.USER_CREATION:
+        return (
+          <OnboardingUserCreation
+            // Just note that it's not great to use non-null assertion here but im feeling a bit lazy atm... Fix in future
+            userId={user.firebaseUserInfo!.uid}
+            email={user.firebaseUserInfo!.email!}
+            handleUserCreated={handleUserCreated}
+            handleBack={() => handlePageChange(Page.INITIAL)}
+          />
+        );
+      default:
+        return (
+          <OnboardingInitialScreen
+            handleNewUser={() => handlePageChange(Page.FIRST_TIME_USER)}
+            handlePreviousUser={() => handlePageChange(Page.FIRST_TIME_USER)}
+          />
+        );
+    }
+  };
+
+  return <View style={{ flex: 1, width: "100%" }}>{renderContent()}</View>;
 };
 
 export default OnboardingScreen;
