@@ -1,6 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { FC } from "react";
+import { FC } from "react";
 import { Button, Text, View } from "react-native";
 import AppConfig from "../../../AppConfig";
 import { parseS3Uri } from "../../../utils/helpers";

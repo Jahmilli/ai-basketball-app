@@ -1,6 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { FC, useContext } from "react";
+import { FC, useContext } from "react";
 import { View } from "react-native";
 import Recorder from "../../components/Recorder/Recorder";
 import { UserContext } from "../../context";

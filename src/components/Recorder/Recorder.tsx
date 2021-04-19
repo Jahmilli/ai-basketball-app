@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
