@@ -4,7 +4,6 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   width: 100%;
-  background-color: white; // Just for test purposes
 `;
 
 export const UploadedVideosLockup = styled.View`
@@ -54,13 +53,13 @@ export const VideolistItemBody = styled.View`
 
 export const ListItemTextLockup = styled.View`
   flex: 1;
-  padding: 10px;
-`;
-
-export const ListItemTitleLockup = styled.View`
-  display: flex;
   flex-direction: row;
-  justify-content: center;
+  flex-wrap: nowrap;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-color: ${(props: any) => props.borderColor ?? "black"};
+  border-bottom-width: 2px;
 `;
 
 export const ListItemTitle = styled.Text`

@@ -75,12 +75,4 @@ export const ListItemTextLockup = styled.View`
   padding: 10px;
 `;
 
-export const ListItemTitle = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-`;
-export const ListItemDescription = styled.Text`
-  font-size: 14px;
-`;
-
 export default styles;

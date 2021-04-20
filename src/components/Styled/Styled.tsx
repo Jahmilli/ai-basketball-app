@@ -20,7 +20,18 @@ export const TitleStyle = styled.Text`
 `;
 
 export const TextStyle = styled.Text`
-  font-size: 14px;
+  font-size: ${(props: any) => {
+    switch (props.fontSize) {
+      case "L":
+        return "24px";
+      case "M":
+        return "20px";
+      case "S":
+        return "16px";
+      default:
+        return "16px";
+    }
+  }};
   font-weight: ${(props: any) => props.fontWeight ?? "normal"};
   color: ${(props: any) => props.color ?? "black"};
 `;

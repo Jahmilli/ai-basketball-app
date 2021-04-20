@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
 
 const styles = StyleSheet.create({
   container: {
@@ -10,4 +11,10 @@ const styles = StyleSheet.create({
   },
 });
 
+export const TextLockup = styled.View`
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
 export default styles;

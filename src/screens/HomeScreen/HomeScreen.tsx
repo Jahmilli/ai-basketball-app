@@ -1,8 +1,8 @@
 import { useIsFocused } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useContext, useEffect, useState } from "react";
-import { Text, View } from "react-native";
-import { TitleStyle } from "../../components/Styled/Styled";
+import { View } from "react-native";
+import { TextStyle, TitleStyle } from "../../components/Styled/Styled";
 import { Tabs } from "../../components/Tabs/Tabs";
 import { UploadedVideos } from "../../components/UploadedVideos/UploadedVideos";
 import { UserContext } from "../../context";
@@ -70,7 +70,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <Text>Loading...</Text>
+        <TextStyle fontSize="L">Loading...</TextStyle>
       </View>
     );
   }

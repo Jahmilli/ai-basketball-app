@@ -5,7 +5,6 @@ export const TabLockup = styled.View`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: #eee;
   width: 100%;
 `;
 

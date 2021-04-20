@@ -57,7 +57,7 @@ const CreateAccountScreen: FC<CreateAccountScreenProps> = ({ navigation }) => {
       <PrimaryButton onPress={handleCreateFirebaseAccount} text="SIGN UP" />
       <Text>{errorMessage}</Text>
       <TextStyle
-        color={lightTheme.SECONDARY_TEXT_COLOR}
+        color={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
         fontWeight="bold"
         onPress={() => navigation.goBack()}
       >

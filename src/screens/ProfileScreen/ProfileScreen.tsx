@@ -1,13 +1,15 @@
 import { useIsFocused } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useContext, useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, View } from "react-native";
 import { signout } from "../../../utils/firebaseWrapper";
+import { PrimaryButton } from "../../components/Button/Button";
+import { TextStyle } from "../../components/Styled/Styled";
 import { UserContext } from "../../context";
 import { IUserDetails } from "../../interfaces/IUser";
 import { getUser } from "../../logic/functions/user";
 import { RootStackParamList } from "../../types/types";
-import styles from "./styles";
+import styles, { TextLockup } from "./styles";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -59,7 +61,7 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
     return (
       <View style={styles.container}>
         <View>
-          <Text>Loading...</Text>
+          <TextStyle fontSize="L">Loading...</TextStyle>
           <Button title="Signout" onPress={handleSignout} />
         </View>
       </View>
@@ -68,24 +70,24 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Button title="Signout" onPress={handleSignout} />
       {userDetails !== null ? (
-        <>
-          <Text>Email: {userDetails.email}</Text>
-          <Text>First Name: {userDetails.firstName}</Text>
-          <Text>Last Name: {userDetails.lastName}</Text>
-          <Text>
+        <TextLockup>
+          <TextStyle>Email: {userDetails.email}</TextStyle>
+          <TextStyle>First Name: {userDetails.firstName}</TextStyle>
+          <TextStyle>Last Name: {userDetails.lastName}</TextStyle>
+          <TextStyle>
             Date of Birth:{" "}
             {new Date(userDetails.dateOfBirth).toLocaleDateString()}
-          </Text>
-          <Text>
+          </TextStyle>
+          <TextStyle>
             Account Creation Date:{" "}
             {new Date(userDetails.createdTimestamp).toLocaleDateString()}
-          </Text>
-        </>
+          </TextStyle>
+        </TextLockup>
       ) : (
-        <Text>An error occurred when getting user</Text>
+        <TextStyle>An error occurred when getting user</TextStyle>
       )}
+      <PrimaryButton text="SIGNOUT" onPress={handleSignout} />
     </View>
   );
 };

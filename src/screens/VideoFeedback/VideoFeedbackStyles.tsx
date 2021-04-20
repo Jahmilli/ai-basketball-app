@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    // padding: 20,
+    padding: 20,
     width: "100%",
   },
   title: {
@@ -14,9 +15,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 20,
   },
-  bodyLockup: {
-    padding: 20,
-  },
+  bodyLockup: {},
   textLockup: {
     display: "flex",
     flexDirection: "row",
@@ -33,5 +32,12 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
 });
+
+export const ButtonLockup = styled.View`
+  width: 100%;
+  flex-grow: 1;
+  align-self: flex-end;
+  justify-content: flex-end;
+`;
 
 export default styles;

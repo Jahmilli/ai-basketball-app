@@ -1,19 +1,17 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC } from "react";
-import { Button, FlatList, Text } from "react-native";
+import { Button, FlatList, Text, View } from "react-native";
 import { IVideo } from "../../interfaces/IVideo";
-import {
-  ListItemBody,
-  ListItemTitle,
-} from "../../screens/RecordShotOptionsScreen/RecordShotOptionsScreenStyles";
+import { ListItemBody } from "../../screens/RecordShotOptionsScreen/RecordShotOptionsScreenStyles";
+import { lightTheme } from "../../styles/theme.styles";
 import { RootStackParamList } from "../../types/types";
+import { PrimaryButton } from "../Button/Button";
+import { TextStyle } from "../Styled/Styled";
 import {
   Container,
   ListItemContainer,
   ListItemTextLockup,
-  ListItemTitleLockup,
   NoUploadsLockup,
-  UploadedVideosLockup,
 } from "./styles";
 
 const renderItem = (navigate: (video: IVideo) => void) => ({
@@ -23,28 +21,23 @@ const renderItem = (navigate: (video: IVideo) => void) => ({
 }) => (
   <ListItemContainer onPress={() => navigate(item)}>
     <ListItemBody>
-      <ListItemTextLockup>
-        <ListItemTitleLockup>
-          <ListItemTitle>{item.name}</ListItemTitle>
-        </ListItemTitleLockup>
-        <Text>{item.description}</Text>
-        <Text>
-          Uploaded date: {new Date(item.createdTimestamp).toLocaleDateString()}
-        </Text>
-        <Text>
-          Uploaded time: {new Date(item.createdTimestamp).toLocaleTimeString()}
-        </Text>
-        <Text>
-          Processed status: {item.isProcessed ? "Complete" : "Pending"}
-        </Text>
-        {/* {!item.isProcessed ? (
-          <View style={styles.viewFeedbackLockup}>
-            <Button
-              title="View Feedback"
-              onPress={() => handleNavigateToVideoFeedback(item)}
-            />
-          </View>
-        ) : null} */}
+      <ListItemTextLockup
+        borderColor={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
+      >
+        <View style={{ width: "33%" }}>
+          <TextStyle>
+            {new Date(item.createdTimestamp).toLocaleDateString()}
+          </TextStyle>
+          <TextStyle>{item.angleOfShot}</TextStyle>
+        </View>
+        <View style={{ width: "33%" }}>
+          <TextStyle style={{ textAlign: "center" }}>80%</TextStyle>
+        </View>
+        <View style={{ width: "33%" }}>
+          <TextStyle fontWeight="bold" style={{ textAlign: "right" }}>
+            {item.isProcessed ? "Complete" : "Processing"}
+          </TextStyle>
+        </View>
       </ListItemTextLockup>
     </ListItemBody>
   </ListItemContainer>
@@ -70,18 +63,15 @@ export const UploadedVideos: FC<UploadedVideosProps> = ({
     <Container>
       {videos.length > 0 ? (
         <>
-          <UploadedVideosLockup>
-            <Text>Upload another video?</Text>
-            <Button
-              title="Record Shot"
-              onPress={() => navigation.navigate("RecordShotSetup")}
-            />
-          </UploadedVideosLockup>
           <FlatList
             data={videos}
             style={{ width: "100%" }}
             renderItem={renderItem(handleNavigateToVideoFeedback)}
             keyExtractor={(item: IVideo) => item.id}
+          />
+          <PrimaryButton
+            text="Record Shot"
+            onPress={() => navigation.navigate("RecordShotSetup")}
           />
         </>
       ) : (
