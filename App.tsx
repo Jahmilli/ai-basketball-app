@@ -31,6 +31,7 @@ const App = () => {
 
     try {
       const result = await getUser(user.uid);
+      console.log("getUser", result);
       setUser({
         firebaseUserInfo: user,
         userDetails: result,
@@ -51,6 +52,7 @@ const App = () => {
   };
 
   useEffect(() => {
+    console.log("App.tsx useEffect");
     const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);

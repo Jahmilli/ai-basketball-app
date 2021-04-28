@@ -31,6 +31,7 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log("useEffect");
     if (!user.firebaseUserInfo) return;
 
     // TODO: When we want to start making users have to verify first we can uncomment this...
@@ -39,8 +40,10 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
     //   return;
     // }
     if (!!user.userDetails) {
+      console.log("home");
       navigation.navigate("Home");
     } else {
+      console.log("onboarding");
       navigation.navigate("Onboarding");
     }
     // TODO: We should not really need isFocusedHere as its just so we can login back to Homescreen if user navigates away by pressing back..

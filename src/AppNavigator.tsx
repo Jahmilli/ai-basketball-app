@@ -4,6 +4,7 @@ import { NavigationHeader } from "./components/NavigationHeader/NavigationHeader
 import CreateAccountScreen from "./screens/CreateAccountScreen/CreateAccountScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen/ForgotPasswordScreen";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
+import LeaderBoardScreen from "./screens/LeaderBoardScreen/LeaderBoardScreen";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import OnboardingScreen from "./screens/OnboardingScreen/OnboardingScreen";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
@@ -79,6 +80,11 @@ const screens = [
     name: "VideoFeedback",
     component: VideoFeedbackScreen,
     options: (props: any) => ({ title: "Feedback" }),
+  },
+  {
+    name: "Leaderboard",
+    component: LeaderBoardScreen,
+    options: (props: any) => ({ title: "Leaderboard" }),
   },
   {
     name: "RecordShotSetup",
