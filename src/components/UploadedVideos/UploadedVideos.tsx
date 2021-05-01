@@ -67,6 +67,7 @@ export const UploadedVideos: FC<UploadedVideosProps> = ({
             data={videos}
             style={{ width: "100%" }}
             renderItem={renderItem(handleNavigateToVideoFeedback)}
+            initialNumToRender={50}
             keyExtractor={(item: IVideo) => item.id}
           />
           <PrimaryButton
@@ -81,12 +82,6 @@ export const UploadedVideos: FC<UploadedVideosProps> = ({
             title="Get Started!"
             onPress={() => navigation.navigate("RecordShotSetup")}
           />
-          {/* <TouchableOpacity
-          style={styles.getStartedButton}
-          onPress={handleNavigate}
-        >
-          <Text>Get</Text>
-          </TouchableOpacity> */}
         </NoUploadsLockup>
       )}
     </Container>

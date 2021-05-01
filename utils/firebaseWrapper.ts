@@ -1,7 +1,6 @@
 import firebase from "firebase";
 
 // Note, error codes can be found here: https://firebase.google.com/docs/reference/js/firebase.auth.Auth
-
 export const login = async (email: string, password: string) => {
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);

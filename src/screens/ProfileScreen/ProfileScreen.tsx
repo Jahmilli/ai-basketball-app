@@ -1,7 +1,7 @@
 import { useIsFocused } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useContext, useEffect, useState } from "react";
-import { Button, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { signout } from "../../../utils/firebaseWrapper";
 import { PrimaryButton } from "../../components/Button/Button";
 import { TextStyle } from "../../components/Styled/Styled";
@@ -23,9 +23,13 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState<IUserDetails | null>(null);
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
+    if (!mounted) return;
+
     if (!user.firebaseUserInfo) {
+      setMounted(false);
       return navigation.navigate("Login");
     }
     if (isLoading) {
@@ -39,15 +43,17 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
         setIsLoading(true);
         const result = await getUser(user.firebaseUserInfo?.uid);
         console.log("result is ", result);
+        if (!mounted) return;
         setUserDetails(result);
       } catch (err) {
         console.log("An error occurred when getting user", err);
       } finally {
+        if (!mounted) return;
         setIsLoading(false);
       }
     };
     callGetUser();
-  }, [isFocused, user]);
+  }, [isFocused, user, mounted]);
 
   const handleSignout = async () => {
     try {
@@ -57,16 +63,15 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <View>
-          <TextStyle fontSize="L">Loading...</TextStyle>
-          <Button title="Signout" onPress={handleSignout} />
-        </View>
-      </View>
-    );
-  }
+  // if (!isLoading) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <TextStyle fontSize="L">Loading...</TextStyle>
+  //       {/* <Button title="Signout" onPress={handleSignout} /> */}
+  //       <PrimaryButton text="SIGNOUT" onPress={handleSignout} />
+  //     </View>
+  //   );
+  // }
 
   return (
     <View style={styles.container}>
@@ -85,7 +90,15 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
           </TextStyle>
         </TextLockup>
       ) : (
-        <TextStyle>An error occurred when getting user</TextStyle>
+        <View
+          style={{
+            flexGrow: 2,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ActivityIndicator size="large" />
+        </View>
       )}
       <PrimaryButton text="SIGNOUT" onPress={handleSignout} />
     </View>

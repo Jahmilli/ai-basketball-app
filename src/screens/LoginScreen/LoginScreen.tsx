@@ -31,7 +31,7 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("useEffect");
+    console.log("useEffect", user);
     if (!user.firebaseUserInfo) return;
 
     // TODO: When we want to start making users have to verify first we can uncomment this...
@@ -39,6 +39,7 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
     //   alert("User is not verified!");
     //   return;
     // }
+    console.log("user is ", user);
     if (!!user.userDetails) {
       console.log("home");
       navigation.navigate("Home");
@@ -96,11 +97,6 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
       </View>
     </View>
   );
-};
-
-// @ts-ignore
-LoginScreen.navigationOptions = {
-  title: "Create Workout",
 };
 
 export default LoginScreen;

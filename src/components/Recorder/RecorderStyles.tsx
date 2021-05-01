@@ -16,6 +16,15 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginRight: 20,
   },
+  loadingLockup: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   bottomLockup: {
     flex: 1,
     backgroundColor: "transparent",

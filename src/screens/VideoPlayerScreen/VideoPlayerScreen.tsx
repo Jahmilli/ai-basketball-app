@@ -28,25 +28,31 @@ const VideoPlayerScreen: FC<VideoPlayerScreenProps> = ({
     positionMillis: 0,
   });
   const [isEndOfVideo, setIsEndOfVideo] = useState(false);
+  const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
     // Check if at end of video (and we haven't already executed this logic)
-    if (!status) return;
+    if (!status || !mounted) return;
     if (status.positionMillis !== status.playableDurationMillis) return;
     if (isEndOfVideo) return;
     setIsEndOfVideo(true);
     displayEndOfVideoAlert();
-  }, [status.positionMillis, setIsEndOfVideo]);
+  }, [status.positionMillis, setIsEndOfVideo, mounted]);
 
   const displayEndOfVideoAlert = () => {
     Alert.alert("Video complete", "", [
       {
         text: "Go back",
-        onPress: () => navigation.goBack(),
+        onPress: () => {
+          setMounted(false);
+          navigation.goBack();
+        },
       },
       {
         text: "Replay Video",
         onPress: () => {
+          if (!mounted) return;
+
           setIsEndOfVideo(false);
           setStatus({
             positionMillis: 0,
@@ -57,15 +63,7 @@ const VideoPlayerScreen: FC<VideoPlayerScreenProps> = ({
     ]);
   };
 
-  // Handle S3 URIs
-  useEffect(() => {
-    async () => {
-      try {
-      } catch (err) {
-        console.warn("An error occurred when trying to get S3 token", err);
-      }
-    };
-  }, []);
+  if (!mounted) return null;
 
   // TODO: Figure out how to reset the video to start of it when we press replay video
   return (
@@ -82,7 +80,10 @@ const VideoPlayerScreen: FC<VideoPlayerScreenProps> = ({
           onLoadStart: () => console.log("loaded"),
         }}
         inFullscreen={true}
-        playbackCallback={(status) => setStatus(status)}
+        playbackCallback={(status) => {
+          if (!mounted) return;
+          setStatus(status);
+        }}
       />
     </View>
   );

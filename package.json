@@ -24,28 +24,28 @@
     "@react-navigation/stack": "^5.6.2",
     "expo": "~38.0.4",
     "expo-asset": "~8.1.7",
-    "expo-av": "8.2.1",
-    "expo-camera": "^8.3.1",
+    "expo-av": "~8.2.1",
+    "expo-camera": "~8.3.1",
     "expo-constants": "~9.1.1",
     "expo-font": "~8.2.1",
-    "expo-linking": "^1.0.1",
-    "expo-media-library": "^8.2.1",
-    "expo-splash-screen": "~0.3.1",
+    "expo-linking": "~1.0.3",
+    "expo-media-library": "~8.2.1",
+    "expo-splash-screen": "^0.5.0",
     "expo-status-bar": "^1.0.0",
     "expo-video-player": "^1.6.1",
     "expo-web-browser": "~8.3.1",
     "firebase": "^7.9.0",
+    "ky": "^0.27.0",
     "react": "^16.13.1",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.0.tar.gz",
-    "react-native-gesture-handler": "^1.6.1",
+    "react-native-gesture-handler": "~1.6.0",
     "react-native-onboarding-swiper": "^1.1.4",
     "react-native-reanimated": "^1.9.0",
-    "react-native-safe-area-context": "3.0.2",
-    "react-native-screens": "^2.9.0",
-    "react-native-web": "~0.11.7",
-    "styled-components": "^5.2.3",
-    "yarn": "^1.22.10"
+    "react-native-safe-area-context": "~3.0.7",
+    "react-native-screens": "~2.9.0",
+    "react-native-web": "^0.16.1",
+    "styled-components": "^5.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
@@ -66,7 +66,7 @@
   "private": true,
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn lint"
+      "pre-commit": "lint-staged && npm run lint"
     }
   },
   "lint-staged": {

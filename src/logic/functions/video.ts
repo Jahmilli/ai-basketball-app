@@ -32,10 +32,9 @@ export const createVideoEntry = async (
   };
 
   try {
-    const result = (await post(
-      `${server}/v1/video`,
-      JSON.stringify(data)
-    )) as IVideo;
+    const result = (await post(`${server}/v1/video`, {
+      json: data,
+    })) as IVideo;
     return result;
   } catch (err) {
     console.warn("An error occurred in upload video", err);
@@ -75,8 +74,10 @@ export const getS3Token = async (userId: string, uri: string): Promise<any> => {
   try {
     // TODO: userId should be part of header
     const result = await post(`${server}/v1/video/token`, {
-      uri,
-      userId,
+      json: {
+        uri,
+        userId,
+      },
     });
     return result;
   } catch (err) {

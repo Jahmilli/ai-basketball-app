@@ -24,11 +24,13 @@ const App = () => {
 
   // Handle user state changes
   const onAuthStateChanged = async (user: firebase.User | null) => {
+    console.log("appts user is ", user);
     if (!user) {
       setUser({});
       return;
     }
 
+    console.log("heeeeeeeere");
     try {
       const result = await getUser(user.uid);
       console.log("getUser", result);

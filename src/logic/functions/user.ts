@@ -9,7 +9,9 @@ export const createUser = async (
   user: Omit<IUserDetails, "createdTimestamp" | "lastUpdated">
 ): Promise<void> => {
   try {
-    await post(`${server}/v1/user/create`, JSON.stringify(user));
+    await post(`${server}/v1/user/create`, {
+      json: user,
+    });
   } catch (err) {
     console.warn("An error occurred when creating user", err);
     throw err;
@@ -18,7 +20,7 @@ export const createUser = async (
 
 export const getUser = async (userId: string): Promise<IUserDetails> => {
   try {
-    const user = (await get(`${server}/v1/user/${userId}`)) as IUserDetails;
+    const user = await get(`${server}/v1/user/${userId}`);
     console.log("get user result is ", user);
     return user;
   } catch (err) {

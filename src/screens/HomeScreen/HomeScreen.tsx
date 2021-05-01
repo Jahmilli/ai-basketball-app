@@ -29,9 +29,11 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentTab, setCurrentTab] = useState(tabs[0]);
+  const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
     if (!user.firebaseUserInfo) {
+      setMounted(false);
       return navigation.navigate("Login");
     }
     if (isLoading) {
@@ -44,10 +46,13 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
       try {
         setIsLoading(true);
         const videos = await getVideos(user.firebaseUserInfo.uid);
+        if (!mounted) return;
+
         setVideos(videos);
       } catch (err) {
         console.log("An error occurred when getting videos", err);
       } finally {
+        if (!mounted) return;
         setIsLoading(false);
       }
     };

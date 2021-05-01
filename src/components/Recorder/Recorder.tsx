@@ -5,7 +5,14 @@ import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import React, { FC, useEffect, useState } from "react";
-import { Alert, Platform, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { AngleOfShot } from "../../enums/AngleOfShot";
 import { TypeOfShot } from "../../enums/TypeOfShot";
 import { useInterval } from "../../hooks/useInterval";
@@ -40,6 +47,16 @@ const Recorder: FC<RecorderProps> = ({
   const [recordingSecs, setRecordingSecs] = useState(0);
   const [videoUri, setVideoUri] = useState<string | null>(null);
   const [didUploadVideo, setDidUploadVideo] = useState(false);
+  const [isVideoUploading, setIsVideoUploading] = useState(false);
+
+  const resetToInitialState = () => {
+    setRecording(false);
+    setRecordingSecs(0);
+    setVideoUri(null);
+    setDidUploadVideo(false);
+    setIsVideoUploading(false);
+  };
+
   const MAX_RECORDING_TIME_SEC = 8;
   useEffect(() => {
     (async () => {
@@ -95,6 +112,8 @@ const Recorder: FC<RecorderProps> = ({
   }
 
   const handleRecordingPress = async () => {
+    if (isVideoUploading) return; // Prevent button presses during upload
+
     if (!cameraRef) {
       alert(
         `An error occurred when setting up camera sooo you cant take a video...`
@@ -113,11 +132,13 @@ const Recorder: FC<RecorderProps> = ({
   };
 
   const handleUploadVideo = async (uri: string) => {
+    setIsVideoUploading(true);
     if (Platform.OS === "android") {
       await handleRecordingAndroid(uri);
     } else {
       await handleRecordingIOS(uri);
     }
+    setIsVideoUploading(false);
   };
 
   const handleRecordingAndroid = async (uri: string) => {
@@ -164,7 +185,7 @@ const Recorder: FC<RecorderProps> = ({
       },
       {
         text: "Record another video",
-        onPress: () => setVideoUri(null),
+        onPress: resetToInitialState,
         style: "cancel",
       },
     ]);
@@ -181,10 +202,7 @@ const Recorder: FC<RecorderProps> = ({
         },
         {
           text: "Record another video",
-          onPress: () => {
-            setDidUploadVideo(false);
-            console.log("Cancel Pressed");
-          },
+          onPress: resetToInitialState,
           style: "cancel",
         },
       ]
@@ -237,22 +255,29 @@ const Recorder: FC<RecorderProps> = ({
           {recording ? MAX_RECORDING_TIME_SEC - recordingSecs : ""}
         </Text>
       </View>
+      {isVideoUploading && (
+        <View style={styles.loadingLockup}>
+          <ActivityIndicator size="large" color="#FFFFFF" />
+        </View>
+      )}
       <View style={styles.bottomLockup}>
         <View style={styles.optionsLockup}>
-          <TouchableOpacity
-            style={{ alignSelf: "center" }}
-            onPress={handleRecordingPress}
-          >
-            <View style={styles.recordVideoOuterCircle}>
-              <View
-                style={
-                  recording
-                    ? styles.recordVideoInnerSquare
-                    : styles.recordVideoInnerCircle
-                }
-              />
-            </View>
-          </TouchableOpacity>
+          {!isVideoUploading && (
+            <TouchableOpacity
+              style={{ alignSelf: "center" }}
+              onPress={handleRecordingPress}
+            >
+              <View style={styles.recordVideoOuterCircle}>
+                <View
+                  style={
+                    recording
+                      ? styles.recordVideoInnerSquare
+                      : styles.recordVideoInnerCircle
+                  }
+                />
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </Camera>
