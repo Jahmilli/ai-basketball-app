@@ -62,4 +62,10 @@ export const bullsSecondaryTheme = {
   PRIMARY_BUTTON_COLOR: "#CE1141",
 };
 
-export const lightTheme = bullsPrimaryTheme;
+export const themes = {
+  initialTheme,
+  bullsPrimaryTheme,
+  bullsSecondaryTheme,
+  lakersPrimaryTheme,
+  lakersSecondaryTheme,
+};

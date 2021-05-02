@@ -3,7 +3,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useContext } from "react";
 import { View } from "react-native";
 import Recorder from "../../components/Recorder/Recorder";
-import { UserContext } from "../../context";
+import { AppContext } from "../../context";
 import { RootStackParamList } from "../../types/types";
 import styles from "./RecordVideoScreenStyles";
 
@@ -24,7 +24,7 @@ const RecordVideoScreen: FC<RecordVideoScreenProps> = ({
   route,
 }) => {
   const { typeOfShot, angleOfShot } = route.params;
-  const user = useContext(UserContext);
+  const { user } = useContext(AppContext);
 
   if (!user.firebaseUserInfo) {
     navigation.navigate("Login");

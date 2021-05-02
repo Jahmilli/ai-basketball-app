@@ -1,11 +1,11 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { Text, View } from "react-native";
 import { validateEmail, validatePassword } from "../../../utils/helpers";
 import { PrimaryButton } from "../../components/Button/Button";
 import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
 import { TextStyle } from "../../components/Styled/Styled";
-import { lightTheme } from "../../styles/theme.styles";
+import { AppContext } from "../../context";
 import { RootStackParamList } from "../../types/types";
 import styles from "./styles";
 
@@ -19,6 +19,7 @@ type CreateAccountScreenProps = {
 };
 
 const CreateAccountScreen: FC<CreateAccountScreenProps> = ({ navigation }) => {
+  const { theme } = useContext(AppContext);
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",
@@ -37,6 +38,7 @@ const CreateAccountScreen: FC<CreateAccountScreenProps> = ({ navigation }) => {
     try {
       validateEmail(email);
       validatePassword(password);
+      navigation.goBack();
     } catch (err) {
       setErrorMessage("Could not create user");
     }
@@ -57,7 +59,7 @@ const CreateAccountScreen: FC<CreateAccountScreenProps> = ({ navigation }) => {
       <PrimaryButton onPress={handleCreateFirebaseAccount} text="SIGN UP" />
       <Text>{errorMessage}</Text>
       <TextStyle
-        color={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
+        color={theme.PRIMARY_BUTTON_BACKGROUND_COLOR}
         fontWeight="bold"
         onPress={() => navigation.goBack()}
       >

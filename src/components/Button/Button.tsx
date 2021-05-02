@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { lightTheme } from "../../styles/theme.styles";
+import React, { FC, useContext } from "react";
+import { AppContext } from "../../context";
 import { PrimaryButtonStyle, PrimaryButtonTextStyle } from "../Styled/Styled";
 
 type ButtonProps = {
@@ -8,14 +8,16 @@ type ButtonProps = {
 };
 
 export const PrimaryButton: FC<ButtonProps> = ({ text, onPress }) => {
+  const { theme } = useContext(AppContext);
+
   return (
     <PrimaryButtonStyle
       onPress={onPress}
-      backgroundColor={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
-      color={lightTheme.PRIMARY_BUTTON_COLOR}
+      backgroundColor={theme.PRIMARY_BUTTON_BACKGROUND_COLOR}
+      color={theme.PRIMARY_BUTTON_COLOR}
     >
       {/* <Text>{text}</Text> */}
-      <PrimaryButtonTextStyle color={lightTheme.PRIMARY_BUTTON_COLOR}>
+      <PrimaryButtonTextStyle color={theme.PRIMARY_BUTTON_COLOR}>
         {text}
       </PrimaryButtonTextStyle>
     </PrimaryButtonStyle>

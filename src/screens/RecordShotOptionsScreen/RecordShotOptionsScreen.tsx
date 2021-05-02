@@ -1,12 +1,12 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { Image, Text, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { PrimaryButton } from "../../components/Button/Button";
 import { TextStyle } from "../../components/Styled/Styled";
+import { AppContext } from "../../context";
 import { IRecordShotOption } from "../../interfaces/IRecordShotOption";
-import { lightTheme } from "../../styles/theme.styles";
 import { RootStackParamList } from "../../types/types";
 import styles, {
   ListItem,
@@ -33,6 +33,7 @@ const RecordShotOptionsScreen: FC<SelectAngleScreenProps> = ({
   navigation,
   route,
 }) => {
+  const { theme } = useContext(AppContext);
   const { screen, options } = route.params;
   const [selectedOptionId, setSelectedOptionId] = useState(options[0].id);
 
@@ -46,19 +47,19 @@ const RecordShotOptionsScreen: FC<SelectAngleScreenProps> = ({
     const isSelected = item.id === selectedOptionId;
     return (
       <ListItem
-        borderColor={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
+        borderColor={theme.PRIMARY_BUTTON_BACKGROUND_COLOR}
         isSelected={isSelected}
         onPress={() => setSelectedOptionId(item.id)}
       >
         <ListItemBody>
           <ListItemTextLockup>
             <TextStyle
-              color={isSelected ? lightTheme.PRIMARY_BUTTON_COLOR : "black"}
+              color={isSelected ? theme.PRIMARY_BUTTON_COLOR : "black"}
             >
               {item.title}
             </TextStyle>
             <TextStyle
-              color={isSelected ? lightTheme.PRIMARY_BUTTON_COLOR : "black"}
+              color={isSelected ? theme.PRIMARY_BUTTON_COLOR : "black"}
             >
               {item.description}
             </TextStyle>

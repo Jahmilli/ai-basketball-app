@@ -7,8 +7,7 @@ import { validateEmail, validatePassword } from "../../../utils/helpers";
 import { PrimaryButton } from "../../components/Button/Button";
 import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
 import { TextStyle } from "../../components/Styled/Styled";
-import { UserContext } from "../../context";
-import { lightTheme } from "../../styles/theme.styles";
+import { AppContext } from "../../context";
 import { RootStackParamList } from "../../types/types";
 import styles from "./LoginScreenStyles";
 
@@ -22,7 +21,7 @@ type LoginScreenProps = {
 };
 
 const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
-  const user = useContext(UserContext);
+  const { theme, user } = useContext(AppContext);
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [userDetails, setUserDetails] = useState({
     email: "",
@@ -88,7 +87,7 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
       <Text>{errorMessage}</Text>
       <View style={styles.textWrapper}>
         <TextStyle
-          color={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
+          color={theme.PRIMARY_BUTTON_BACKGROUND_COLOR}
           fontWeight="bold"
           onPress={() => navigation.navigate("ForgotPassword")}
         >

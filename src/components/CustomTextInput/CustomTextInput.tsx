@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { KeyboardTypeOptions } from "react-native";
-import { lightTheme } from "../../styles/theme.styles";
+import { AppContext } from "../../context";
 import { InputLabelTextStyle, InputStyle } from "../Styled/Styled";
 import { TextInputContainer } from "./styles";
 
@@ -21,6 +21,7 @@ const CustomTextInput: FC<CustomTextInputProps> = ({
   keyboardType = "default",
   label,
 }) => {
+  const { theme } = useContext(AppContext);
   return (
     <TextInputContainer>
       {label && <InputLabelTextStyle color="gray">{label}</InputLabelTextStyle>}
@@ -28,11 +29,10 @@ const CustomTextInput: FC<CustomTextInputProps> = ({
         onChangeText={(text) => onChangeText(text)}
         value={value}
         placeholder={placeholder}
-        borderColor={lightTheme.INPUT_BORDER_COLOR}
-        backgroundColor={lightTheme.INPUT_BACKGROUND_COLOR}
+        borderColor={theme.INPUT_BORDER_COLOR}
+        backgroundColor={theme.INPUT_BACKGROUND_COLOR}
         keyboardType={keyboardType}
         secureTextEntry={secureTextEntry}
-        // color={lightTheme.INPUT_COLOR}
       />
     </TextInputContainer>
   );

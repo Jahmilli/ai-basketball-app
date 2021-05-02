@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components/native";
-import { lightTheme } from "../../styles/theme.styles";
+import { AppContext } from "../../context";
 import { TitleStyle } from "../Styled/Styled";
 
 interface INavigationButton {
@@ -30,6 +30,7 @@ export const NavigationHeader: FC<NavigationHeaderProps> = ({
   leftButton,
   rightButton,
 }) => {
+  const { theme } = useContext(AppContext);
   return (
     <Container>
       {/* <View>
@@ -43,7 +44,7 @@ export const NavigationHeader: FC<NavigationHeaderProps> = ({
       <View>
         {rightButton && (
           <NavigationButton onPress={rightButton.onPress}>
-            <Text style={{ color: lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR }}>
+            <Text style={{ color: theme.PRIMARY_BUTTON_BACKGROUND_COLOR }}>
               {rightButton.title}
             </Text>
           </NavigationButton>

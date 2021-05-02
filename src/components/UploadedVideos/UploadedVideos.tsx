@@ -1,9 +1,9 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Button, FlatList, Text, View } from "react-native";
+import { AppContext } from "../../context";
 import { IVideo } from "../../interfaces/IVideo";
 import { ListItemBody } from "../../screens/RecordShotOptionsScreen/RecordShotOptionsScreenStyles";
-import { lightTheme } from "../../styles/theme.styles";
 import { RootStackParamList } from "../../types/types";
 import { PrimaryButton } from "../Button/Button";
 import { TextStyle } from "../Styled/Styled";
@@ -14,34 +14,34 @@ import {
   NoUploadsLockup,
 } from "./styles";
 
-const renderItem = (navigate: (video: IVideo) => void) => ({
+const renderItem = (theme: any, navigate: (video: IVideo) => void) => ({
   item,
 }: {
   item: IVideo;
-}) => (
-  <ListItemContainer onPress={() => navigate(item)}>
-    <ListItemBody>
-      <ListItemTextLockup
-        borderColor={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
-      >
-        <View style={{ width: "33%" }}>
-          <TextStyle>
-            {new Date(item.createdTimestamp).toLocaleDateString()}
-          </TextStyle>
-          <TextStyle>{item.angleOfShot}</TextStyle>
-        </View>
-        <View style={{ width: "33%" }}>
-          <TextStyle style={{ textAlign: "center" }}>80%</TextStyle>
-        </View>
-        <View style={{ width: "33%" }}>
-          <TextStyle fontWeight="bold" style={{ textAlign: "right" }}>
-            {item.isProcessed ? "Complete" : "Processing"}
-          </TextStyle>
-        </View>
-      </ListItemTextLockup>
-    </ListItemBody>
-  </ListItemContainer>
-);
+}) => {
+  return (
+    <ListItemContainer onPress={() => navigate(item)}>
+      <ListItemBody>
+        <ListItemTextLockup borderColor={theme.PRIMARY_BUTTON_BACKGROUND_COLOR}>
+          <View style={{ width: "33%" }}>
+            <TextStyle>
+              {new Date(item.createdTimestamp).toLocaleDateString()}
+            </TextStyle>
+            <TextStyle>{item.angleOfShot}</TextStyle>
+          </View>
+          <View style={{ width: "33%" }}>
+            <TextStyle style={{ textAlign: "center" }}>80%</TextStyle>
+          </View>
+          <View style={{ width: "33%" }}>
+            <TextStyle fontWeight="bold" style={{ textAlign: "right" }}>
+              {item.isProcessed ? "Complete" : "Processing"}
+            </TextStyle>
+          </View>
+        </ListItemTextLockup>
+      </ListItemBody>
+    </ListItemContainer>
+  );
+};
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type UploadedVideosProps = {
@@ -53,6 +53,7 @@ export const UploadedVideos: FC<UploadedVideosProps> = ({
   navigation,
   videos,
 }) => {
+  const { theme } = useContext(AppContext);
   const handleNavigateToVideoFeedback = (video: IVideo) => {
     navigation.navigate("VideoFeedback", {
       video,
@@ -66,7 +67,7 @@ export const UploadedVideos: FC<UploadedVideosProps> = ({
           <FlatList
             data={videos}
             style={{ width: "100%" }}
-            renderItem={renderItem(handleNavigateToVideoFeedback)}
+            renderItem={renderItem(theme, handleNavigateToVideoFeedback)}
             initialNumToRender={50}
             keyExtractor={(item: IVideo) => item.id}
           />

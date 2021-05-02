@@ -5,7 +5,7 @@ import { View } from "react-native";
 import { TextStyle, TitleStyle } from "../../components/Styled/Styled";
 import { Tabs } from "../../components/Tabs/Tabs";
 import { UploadedVideos } from "../../components/UploadedVideos/UploadedVideos";
-import { UserContext } from "../../context";
+import { AppContext } from "../../context";
 import { getVideos } from "../../logic/functions/video";
 import { RootStackParamList } from "../../types/types";
 import styles from "./HomeScreenStyles";
@@ -24,7 +24,7 @@ const tabs = [TabTitles.STATS, TabTitles.VIDEOS];
 // TODO: Prevent users from being able to press backbutton...
 
 const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
-  const user = useContext(UserContext);
+  const { user } = useContext(AppContext);
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

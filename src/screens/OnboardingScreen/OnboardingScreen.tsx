@@ -1,7 +1,7 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useContext, useState } from "react";
 import { View } from "react-native";
-import { UserContext } from "../../context";
+import { AppContext } from "../../context";
 import { RootStackParamList } from "../../types/types";
 import { OnboardingInitialScreen } from "./OnboardingInitialScreen";
 import { OnboardingUserCreation } from "./OnboardingUserCreation";
@@ -21,7 +21,7 @@ enum Page {
 }
 
 const OnboardingScreen: FC<OnboardingScreenProps> = ({ navigation }) => {
-  const user = useContext(UserContext);
+  const { user } = useContext(AppContext);
 
   const [currentPage, setCurrentPage] = useState<Page>(Page.INITIAL);
 

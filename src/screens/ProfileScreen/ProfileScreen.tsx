@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useContext, useEffect, useState } from "react";
@@ -5,11 +6,12 @@ import { ActivityIndicator, View } from "react-native";
 import { signout } from "../../../utils/firebaseWrapper";
 import { PrimaryButton } from "../../components/Button/Button";
 import { TextStyle } from "../../components/Styled/Styled";
-import { UserContext } from "../../context";
+import { AppContext } from "../../context";
 import { IUserDetails } from "../../interfaces/IUser";
 import { getUser } from "../../logic/functions/user";
+import { themes } from "../../styles/theme.styles";
 import { RootStackParamList } from "../../types/types";
-import styles, { TextLockup } from "./styles";
+import styles, { TextLockup, ThemeOption, ThemeOptionLockup } from "./styles";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -19,7 +21,7 @@ type ProfileScreenProps = {
   navigation: ProfileScreenNavigationProp;
 };
 const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
-  const user = useContext(UserContext);
+  const { user, setThemeKey } = useContext(AppContext);
   const [userDetails, setUserDetails] = useState<IUserDetails | null>(null);
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [isLoading, setIsLoading] = useState(false);
@@ -63,6 +65,18 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
     }
   };
 
+  const handleUpdateTheme = async (key: string) => {
+    try {
+      setThemeKey(key);
+      await AsyncStorage.setItem("@theme_key", key);
+      console.log("set key");
+    } catch (err) {
+      console.warn(
+        "An erorr occurred when setting theme key into local storage"
+      );
+    }
+  };
+
   // if (!isLoading) {
   //   return (
   //     <View style={styles.container}>
@@ -100,6 +114,15 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
           <ActivityIndicator size="large" />
         </View>
       )}
+      <ThemeOptionLockup>
+        {Object.keys(themes).map((key) => (
+          <ThemeOption
+            key={key}
+            backgroundColor={themes[key]["PRIMARY_BUTTON_BACKGROUND_COLOR"]}
+            onPress={() => handleUpdateTheme(key)}
+          />
+        ))}
+      </ThemeOptionLockup>
       <PrimaryButton text="SIGNOUT" onPress={handleSignout} />
     </View>
   );

@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Image, View } from "react-native";
-import { lightTheme } from "../../styles/theme.styles";
+import { AppContext } from "../../context";
 import styles, { Container, Key, Value } from "./ListOptionWithIconStyles";
 
 type ListOptionWithIconProps = {
@@ -15,9 +15,10 @@ const ListOptionWithIcon: FC<ListOptionWithIconProps> = ({
   onPress,
   icon,
 }) => {
+  const { theme } = useContext(AppContext);
   return (
     <Container
-      borderColor={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
+      borderColor={theme.PRIMARY_BUTTON_BACKGROUND_COLOR}
       onPress={onPress}
     >
       <View style={styles.body}>
