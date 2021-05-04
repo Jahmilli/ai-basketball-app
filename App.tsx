@@ -9,7 +9,7 @@ import AppNavigator from "./src/AppNavigator";
 import { NotFoundStatusCode } from "./src/constants/Http";
 import { UserContext } from "./src/context";
 import useCachedResources from "./src/hooks/useCachedResources";
-import { IUser } from "./src/interfaces/IUser";
+import { IUser } from "./src/interfaces/IUserDetails";
 import { getUser } from "./src/logic/functions/user";
 
 if (firebase.apps.length === 0) {

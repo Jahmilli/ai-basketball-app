@@ -15,8 +15,26 @@ export interface IVideo {
   createdTimestamp: number;
 }
 
+export interface IResult {
+  feedback: IFeedback;
+  scores: IScore;
+}
+
 export interface IFeedback {
   multiAxis: string;
   singleAxis: string;
   angle: string;
+}
+
+export interface IScore {
+  id: string;
+  user_id: Text;
+  score_prep: number;
+  score_exec: number;
+  score_follow: number;
+  created_timestamp: number;
+}
+
+export interface IScores {
+  score: IScore[];
 }

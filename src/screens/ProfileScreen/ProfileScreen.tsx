@@ -6,7 +6,7 @@ import { signout } from "../../../utils/firebaseWrapper";
 import { PrimaryButton } from "../../components/Button/Button";
 import { TextStyle } from "../../components/Styled/Styled";
 import { UserContext } from "../../context";
-import { IUserDetails } from "../../interfaces/IUser";
+import { IUserDetails } from "../../interfaces/IUserDetails";
 import { getUser } from "../../logic/functions/user";
 import { RootStackParamList } from "../../types/types";
 import styles, { TextLockup } from "./styles";
@@ -38,7 +38,6 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
       try {
         setIsLoading(true);
         const result = await getUser(user.firebaseUserInfo?.uid);
-        console.log("result is ", result);
         setUserDetails(result);
       } catch (err) {
         console.log("An error occurred when getting user", err);

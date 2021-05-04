@@ -19,7 +19,6 @@ export const createUser = async (
 export const getUser = async (userId: string): Promise<IUserDetails> => {
   try {
     const user = (await get(`${server}/v1/user/${userId}`)) as IUserDetails;
-    console.log("get user result is ", user);
     return user;
   } catch (err) {
     console.warn(`An error occurred when getting user for id ${userId}`, err);

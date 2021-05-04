@@ -1,6 +1,7 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useState } from "react";
 import { Text, View } from "react-native";
+import { createAccount } from "../../../utils/firebaseWrapper";
 import { validateEmail, validatePassword } from "../../../utils/helpers";
 import { PrimaryButton } from "../../components/Button/Button";
 import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
@@ -37,6 +38,7 @@ const CreateAccountScreen: FC<CreateAccountScreenProps> = ({ navigation }) => {
     try {
       validateEmail(email);
       validatePassword(password);
+      await createAccount(email, password);
     } catch (err) {
       setErrorMessage("Could not create user");
     }

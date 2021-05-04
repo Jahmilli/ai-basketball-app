@@ -12,6 +12,7 @@ import RecordShotSetupScreen from "./screens/RecordShotSetupScreen/RecordShotSet
 import RecordVideoScreen from "./screens/RecordVideoScreen/RecordVideoScreen";
 import VideoFeedbackScreen from "./screens/VideoFeedback/VideoFeedback";
 import VideoPlayerScreen from "./screens/VideoPlayerScreen/VideoPlayerScreen";
+import LeaderBoardScreen from "./screens/LeaderBoardScreen/LeaderBoardScreen";
 
 const Stack = createStackNavigator();
 
@@ -99,6 +100,11 @@ const screens = [
     name: "VideoPlayer",
     component: VideoPlayerScreen,
     options: (props: any) => ({ title: "Video Player" }),
+  },
+  {
+    name: "LeaderBoard",
+    component: LeaderBoardScreen,
+    options: (props: any) => ({ title: "Leader Board" }),
   },
 ];
 
