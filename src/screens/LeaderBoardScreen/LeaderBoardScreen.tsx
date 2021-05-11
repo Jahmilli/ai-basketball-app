@@ -36,32 +36,31 @@ const LeaderBoardScreen: FC<LeaderBoardScreenProps> = ({
 
   return (
     <View>
-      <TextStyle fontSize="L">Suck MY cock...</TextStyle>
-
-      <View>
-        {scores.map((score, index) => (
-          <ListItemContainer>
-            <ListItemBody key={index}>
-              <ListItemTextLockup
-                borderColor={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
-              >
-                <View style={{ width: "25%" }}>
-                  <TextStyle>{index + 1}</TextStyle>
-                </View>
-                <View style={{ width: "25%" }}>
-                  <TextStyle>{score.score_prep}</TextStyle>
-                </View>
-                <View style={{ width: "25%" }}>
-                  <TextStyle>{score.score_exec}</TextStyle>
-                </View>
-                <View style={{ width: "25%" }}>
-                  <TextStyle>{score.score_follow}</TextStyle>
-                </View>
-              </ListItemTextLockup>
-            </ListItemBody>
-          </ListItemContainer>
-        ))}
-      </View>
+      {scores.map((score, index) => (
+        <ListItemContainer>
+          <ListItemBody key={index}>
+            <ListItemTextLockup
+              borderColor={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
+            >
+              <View style={{ width: "20%" }}>
+                <TextStyle>{index + 1}</TextStyle>
+              </View>
+              <View style={{ width: "20%" }}>
+                <TextStyle>{score.user_email}</TextStyle>
+              </View>
+              <View style={{ width: "20%" }}>
+                <TextStyle>{score.score_prep}</TextStyle>
+              </View>
+              <View style={{ width: "20%" }}>
+                <TextStyle>{score.score_exec}</TextStyle>
+              </View>
+              <View style={{ width: "20%" }}>
+                <TextStyle>{score.score_follow}</TextStyle>
+              </View>
+            </ListItemTextLockup>
+          </ListItemBody>
+        </ListItemContainer>
+      ))}
     </View>
   );
 };

@@ -33,6 +33,7 @@ export interface IScore {
   score_exec: number;
   score_follow: number;
   created_timestamp: number;
+  user_email: string;
 }
 
 export interface IScores {

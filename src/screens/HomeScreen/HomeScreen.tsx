@@ -11,7 +11,7 @@ import { getVideos } from "../../logic/functions/video";
 import { RootStackParamList } from "../../types/types";
 import styles from "./HomeScreenStyles";
 import { getScores } from "../../logic/functions/leaderBoard";
-import { IScores, IScore } from "../../interfaces/IVideo";
+import { IScore } from "../../interfaces/IVideo";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type HomeScreenProps = {
