@@ -34,7 +34,7 @@ const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
   const { video } = route.params;
   const user = useContext(UserContext);
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
-  const [previousScore, setPreviousScore] = useState<IScore>();
+  const [mostRecentScore, setMostRecentScore] = useState<IScore>();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect (() => {
@@ -42,20 +42,20 @@ const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
       return;
     }
 
-    const callGetPreviousScore = async () => {
+    const callGetMostRecentScore = async () => {
       try {
         setIsLoading(true);
         console.log(user.firebaseUserInfo?.uid, user.userDetails?.id);
         const lastScore = await getLastScore(user.userDetails?.id);
-        setPreviousScore(lastScore);
-        console.log("Previous score is: ", previousScore);
+        setMostRecentScore(lastScore);
+        console.log("Previous score is: ", mostRecentScore);
       } catch (err) {
         console.log("An error occrued when getting the most recent score", err);
       } finally {
         setIsLoading(false);
       }
     };
-    callGetPreviousScore();
+    callGetMostRecentScore();
   }, [isFocused]);
 
   // const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
@@ -118,7 +118,7 @@ const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
             Score compared to most recent shot:{" "}
           </Text>
           <Text style={styles.textValue}>
-            {previousScore?.score_prep || "Missing feedback"}
+            {mostRecentScore?.score_prep || "Missing feedback"}
           </Text>
         </View>
         <View style={styles.textLockup}>
