@@ -66,6 +66,7 @@ const ProfileScreen: FC<ProfileScreenProps> = ({ navigation }) => {
   };
 
   const handleUpdateTheme = async (key: string) => {
+    if (!mounted) return;
     try {
       setThemeKey(key);
       await AsyncStorage.setItem("@theme_key", key);

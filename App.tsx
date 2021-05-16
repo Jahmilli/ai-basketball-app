@@ -45,7 +45,7 @@ const App = () => {
     } catch (err) {
       // If this happens then we have a new user that we need to onboard
       console.log("app use", user);
-      if (err.statusCode === NotFoundStatusCode) {
+      if (err.response?.status === NotFoundStatusCode) {
         setUser({
           firebaseUserInfo: user,
           userDetails: undefined,

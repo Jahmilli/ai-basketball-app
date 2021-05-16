@@ -14,7 +14,6 @@ const createRequest = async (
     },
     headers: {
       ...options.headers,
-      // ...ba
     },
   };
   try {
@@ -23,6 +22,7 @@ const createRequest = async (
       ...additionalOptions,
     }).json();
   } catch (err) {
+    // TODO: In order to get response body for an error we need to do `await err.response.json()`. Might be worth setting up a custom error for this if required in multiple places...
     throw err;
   }
 };
