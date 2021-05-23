@@ -15,7 +15,7 @@ export const OnboardingInitialScreen: FC<OnboardingInitialScreenProps> = ({
   return (
     <OnboardingInitialScreenContainer>
       <TitleStyle>Welcome to AIBasketball</TitleStyle>
-      <TextStyle>Taking you from a mere pleb to the NBA</TextStyle>
+      <TextStyle>Taking you from a newbie to the NBA</TextStyle>
       <PrimaryButton text="First time? Click me!" onPress={handleNewUser} />
       {/* <PrimaryButton
         text="I've used this before"
