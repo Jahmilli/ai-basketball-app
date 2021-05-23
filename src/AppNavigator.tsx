@@ -82,11 +82,6 @@ const screens = [
     options: (props: any) => ({ title: "Feedback" }),
   },
   {
-    name: "Leaderboard",
-    component: LeaderBoardScreen,
-    options: (props: any) => ({ title: "Leaderboard" }),
-  },
-  {
     name: "RecordShotSetup",
     component: RecordShotSetupScreen,
     options: (props: any) => ({ title: "Record" }),

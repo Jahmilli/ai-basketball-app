@@ -28,11 +28,11 @@ export interface IFeedback {
 
 export interface IScore {
   id: string;
-  user_id: Text;
-  score_prep: number;
-  score_exec: number;
-  score_follow: number;
-  created_timestamp: number;
+  user_id: string;
+  score_prep: string;
+  score_exec: string;
+  score_follow: string;
+  created_timestamp: string;
   user_email: string;
 }
 

@@ -3,7 +3,6 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useEffect, useState, useContext } from "react";
 import { Button, FlatList, Text, View } from "react-native";
 import { IScores, IScore } from "../../interfaces/IVideo";
-import { lightTheme } from "../../styles/theme.styles";
 import { RootStackParamList } from "../../types/types";
 import { RouteProp } from "@react-navigation/native";
 import { ListItemBody } from "../../screens/RecordShotOptionsScreen/RecordShotOptionsScreenStyles";
@@ -15,6 +14,7 @@ import {
   ListItemTextLockup,
   NoUploadsLockup,
 } from "./LeaderBoardScreenStyles";
+import { AppContext} from "../../context";
 
 type LeaderBoardkScreenRouteProp = RouteProp<RootStackParamList, "LeaderBoard">;
 
@@ -33,14 +33,16 @@ const LeaderBoardScreen: FC<LeaderBoardScreenProps> = ({
   route,
 }) => {
   const { scores } = route.params;
+  console.log("Leaderboard scores are:  ", scores);
+  const { theme } = useContext(AppContext);
 
   return (
     <View>
       {scores.map((score, index) => (
-        <ListItemContainer>
+        <ListItemContainer key={score.id}>
           <ListItemBody key={index}>
             <ListItemTextLockup
-              borderColor={lightTheme.PRIMARY_BUTTON_BACKGROUND_COLOR}
+              borderColor={theme.PRIMARY_BUTTON_BACKGROUND_COLOR}
             >
               <View style={{ width: "20%" }}>
                 <TextStyle>{index + 1}</TextStyle>
