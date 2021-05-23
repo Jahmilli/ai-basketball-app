@@ -5,9 +5,9 @@ const serverHostname = AppConfig.serverHostname;
 
 export const getLastScore = async (userId: any): Promise<any> => {
   try {
-    console.log(serverHostname + ":3003/v1/getLastScore");
+    console.log(serverHostname + "analytics/v1/getLastScore");
     const lastScore = await get(
-      `http://${serverHostname}` + ":3003/v1/getLastScore/" + userId
+      `http://${serverHostname}` + "analytics/v1/getLastScore/" + userId
     );
     return lastScore;
   } catch (err) {

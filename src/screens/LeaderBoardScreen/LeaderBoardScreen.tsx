@@ -48,16 +48,16 @@ const LeaderBoardScreen: FC<LeaderBoardScreenProps> = ({
                 <TextStyle>{index + 1}</TextStyle>
               </View>
               <View style={{ width: "20%" }}>
-                <TextStyle>{score.user_email}</TextStyle>
+                <TextStyle>{score.user_firstName}</TextStyle>
               </View>
               <View style={{ width: "20%" }}>
-                <TextStyle>{score.score_prep}</TextStyle>
+                <TextStyle>{score.score_prep || "Invalid"}</TextStyle>
               </View>
               <View style={{ width: "20%" }}>
-                <TextStyle>{score.score_exec}</TextStyle>
+                <TextStyle>{score.score_exec || "Invalid"}</TextStyle>
               </View>
               <View style={{ width: "20%" }}>
-                <TextStyle>{score.score_follow}</TextStyle>
+                <TextStyle>{score.score_follow || "Invalid"}</TextStyle>
               </View>
             </ListItemTextLockup>
           </ListItemBody>
