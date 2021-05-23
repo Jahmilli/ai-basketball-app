@@ -1,6 +1,6 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useContext } from "react";
-import { Button, FlatList, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { AppContext } from "../../context";
 import { IVideo } from "../../interfaces/IVideo";
 import { ListItemBody } from "../../screens/RecordShotOptionsScreen/RecordShotOptionsScreenStyles";
@@ -78,9 +78,9 @@ export const UploadedVideos: FC<UploadedVideosProps> = ({
         </>
       ) : (
         <NoUploadsLockup>
-          <Text>Looks like you haven't uploaded videos yet!</Text>
-          <Button
-            title="Get Started!"
+          <TextStyle>Looks like you haven't uploaded videos yet!</TextStyle>
+          <PrimaryButton
+            text="Get Started!"
             onPress={() => navigation.navigate("RecordShotSetup")}
           />
         </NoUploadsLockup>

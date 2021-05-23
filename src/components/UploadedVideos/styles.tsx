@@ -17,6 +17,7 @@ export const UploadedVideosLockup = styled.View`
 export const NoUploadsLockup = styled.View`
   width: 100%;
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
   text-align: center;
