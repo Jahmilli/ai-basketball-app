@@ -1,6 +1,6 @@
 import { AngleOfShot } from "../enums/AngleOfShot";
 import { TypeOfShot } from "../enums/TypeOfShot";
-import { IVideo } from "../interfaces/IVideo";
+import { IVideo, IScore } from "../interfaces/IVideo";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -27,5 +27,8 @@ export type RootStackParamList = {
   };
   VideoFeedback: {
     video: IVideo;
+  };
+  LeaderBoard: {
+    scores: IScore[];
   };
 };

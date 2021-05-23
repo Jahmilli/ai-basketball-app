@@ -106,6 +106,11 @@ const screens = [
     component: VideoPlayerScreen,
     options: (props: any) => ({ title: "Video Player" }),
   },
+  {
+    name: "LeaderBoard",
+    component: LeaderBoardScreen,
+    options: (props: any) => ({ title: "Leader Board" }),
+  },
 ];
 
 const Routes = () => {

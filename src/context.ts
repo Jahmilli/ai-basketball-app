@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { IUser } from "./interfaces/IUser";
+import { IUser } from "./interfaces/IUserDetails";
 import { initialTheme } from "./styles/theme.styles";
 
 interface IContext {

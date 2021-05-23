@@ -10,7 +10,7 @@ import AppNavigator from "./src/AppNavigator";
 import { NotFoundStatusCode } from "./src/constants/Http";
 import { AppContext } from "./src/context";
 import useCachedResources from "./src/hooks/useCachedResources";
-import { IUser } from "./src/interfaces/IUser";
+import { IUser } from "./src/interfaces/IUserDetails";
 import { getUser } from "./src/logic/functions/user";
 import { themes } from "./src/styles/theme.styles";
 

@@ -37,6 +37,7 @@
     "expo-web-browser": "~8.3.1",
     "firebase": "^7.9.0",
     "ky": "^0.27.0",
+    "media-library": "^1.2.4",
     "react": "^16.13.1",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.0.tar.gz",
@@ -46,7 +47,8 @@
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",
     "react-native-web": "^0.16.1",
-    "styled-components": "^5.2.3"
+    "styled-components": "^5.2.3",
+    "expo-permissions": "~9.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

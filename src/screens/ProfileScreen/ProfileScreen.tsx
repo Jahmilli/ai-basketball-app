@@ -7,7 +7,7 @@ import { signout } from "../../../utils/firebaseWrapper";
 import { PrimaryButton } from "../../components/Button/Button";
 import { TextStyle } from "../../components/Styled/Styled";
 import { AppContext } from "../../context";
-import { IUserDetails } from "../../interfaces/IUser";
+import { IUserDetails } from "../../interfaces/IUserDetails";
 import { getUser } from "../../logic/functions/user";
 import { themes } from "../../styles/theme.styles";
 import { RootStackParamList } from "../../types/types";

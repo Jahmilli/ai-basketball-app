@@ -2,6 +2,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useContext, useEffect, useState } from "react";
 import { View } from "react-native";
+import { PrimaryButton } from "../../components/Button/Button";
 import { TextStyle, TitleStyle } from "../../components/Styled/Styled";
 import { Tabs } from "../../components/Tabs/Tabs";
 import { UploadedVideos } from "../../components/UploadedVideos/UploadedVideos";
@@ -9,6 +10,8 @@ import { AppContext } from "../../context";
 import { getVideos } from "../../logic/functions/video";
 import { RootStackParamList } from "../../types/types";
 import styles from "./HomeScreenStyles";
+import { getScores } from "../../logic/functions/leaderBoard";
+import { IScore } from "../../interfaces/IVideo";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type HomeScreenProps = {
@@ -27,6 +30,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const { user } = useContext(AppContext);
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [videos, setVideos] = useState([]);
+  const [scores, setScores] = useState<IScore[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentTab, setCurrentTab] = useState(tabs[0]);
   const [mounted, setMounted] = useState(true);
@@ -56,13 +60,39 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
         setIsLoading(false);
       }
     };
+
+    const callGetScores = async () => {
+      try {
+        setIsLoading(true);
+        const scores: IScore[] = await getScores();
+        setScores(scores);
+      } catch (err) {
+        console.log(
+          "An error occurred when getting scores for leader board",
+          err
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    callGetScores();
     callGetVideos();
   }, [isFocused, user]);
+
+  const handleNavigateLeaderBoard = () => {
+    navigation.navigate("LeaderBoard", { scores });
+  };
 
   const renderSelectedContent = (currentTab: TabTitles) => {
     switch (currentTab) {
       case TabTitles.STATS:
-        return <TitleStyle>Coming Soon...</TitleStyle>;
+        return (
+          <PrimaryButton
+            text="LeaderBoard"
+            onPress={handleNavigateLeaderBoard}
+          />
+        );
       case TabTitles.VIDEOS:
         return <UploadedVideos videos={videos} navigation={navigation} />;
       default:
