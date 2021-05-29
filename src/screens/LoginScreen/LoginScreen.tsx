@@ -28,6 +28,7 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log("In login screen with user", user);
     if (!user) return;
 
     // TODO: When we want to start making users have to verify first we can uncomment this...

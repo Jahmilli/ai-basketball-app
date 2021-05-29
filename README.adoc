@@ -18,14 +18,6 @@ The following dependencies are required to run this application
 
 You will require the firebase config to be able to run the application. Please talk to a member in the team about getting this and save the config as a file named: `firebaseConf.ts`
 
-
-==== Cloudfront Content
-
-Useful Links:
-
-- https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-access-to-amazon-s3/
-- https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-overview.html
-
 === Local Development
 
 The following steps need to be followed to run the application:
@@ -41,28 +33,6 @@ NOTE: Because we live in 2021 and the world is a magical place, in order to run 
 To do this, when you startup expo (via Android or IOS), you should expect that you see an IP logged, ie `exp://192.168.0.1:19000`. You should also see the IP address when you scan the QR code and view it from Expo.
 Take this IP address and replace `serverHostname` in AppConfig.ts with it. EG `serverHostname=192.168.0.1`.
 
-
-=== Manual Project Setup
-
-Note: We should not really be doing anything manually to setup the project.
-
-==== Firebase Project Setup
-
-1. Navigate to: https://console.firebase.google.com/
-2. Click 'Add project' (Fill in options to create project)
-3. When the project is setup, go to 'Project Settings'
-4. Click 'Add app' and click on the `</>` icon.
-5. Name the project, and fill out the inputs to create the app!
-
-==== AWS Setup
-
-__Note:__ The following setup will need to be templated into Cloudformation or Terraform
-
-1. Setup S3 bucket named 'aibasketball' (or something similar)
-2. Setup Cloudfront distribution for the bucket
-3. Setup policy in IAM to write to S3
-4. Setup a user in IAM with programmatic access only that uses the policy created
-5. Save the access token and secret access token locally (This will need to be used by the app)
 
 == Conventions
 

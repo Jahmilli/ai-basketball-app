@@ -1,12 +1,11 @@
-import { RouteProp } from "@react-navigation/native";
+import React, { FC, useContext } from "react";
+import styles from "./RecordVideoScreenStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { FC, useContext } from "react";
+import { RootStackParamList } from "../../types/types";
 import { View } from "react-native";
 import Recorder from "../../components/Recorder/Recorder";
+import { RouteProp } from "@react-navigation/native";
 import { UserContext } from "../../context";
-import { RootStackParamList } from "../../types/types";
-import styles from "./RecordVideoScreenStyles";
-
 type SelectAngleScreenRouteProp = RouteProp<RootStackParamList, "RecordVideo">;
 
 type RecordVideoScreenNavigationProp = StackNavigationProp<
