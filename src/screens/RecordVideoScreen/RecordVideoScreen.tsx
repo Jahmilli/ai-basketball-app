@@ -1,10 +1,12 @@
-import React, { FC, useEffect } from "react";
-import styles from "./RecordVideoScreenStyles";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types/types";
-import { PermissionsAndroid, View } from "react-native";
-import Recorder from "../../components/Recorder/Recorder";
 import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { FC, useContext } from "react";
+import { View } from "react-native";
+import Recorder from "../../components/Recorder/Recorder";
+import { AppContext } from "../../context";
+import { RootStackParamList } from "../../types/types";
+import styles from "./RecordVideoScreenStyles";
+
 type SelectAngleScreenRouteProp = RouteProp<RootStackParamList, "RecordVideo">;
 
 type RecordVideoScreenNavigationProp = StackNavigationProp<
@@ -22,9 +24,17 @@ const RecordVideoScreen: FC<RecordVideoScreenProps> = ({
   route,
 }) => {
   const { typeOfShot, angleOfShot } = route.params;
+  const { user } = useContext(AppContext);
+
+  if (!user.firebaseUserInfo) {
+    navigation.navigate("Login");
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <Recorder
+        userId={user.firebaseUserInfo.uid}
         typeOfShot={typeOfShot}
         angleOfShot={angleOfShot}
         navigation={navigation}

@@ -1,54 +1,36 @@
-// const AUTH_TOKEN = 'access_token';
-export type Options = {};
+import ky, { Options } from "ky";
 
-// Will be used with the JWT token
-export type AuthToken = {
-  type: string;
-  name: string;
-  value: string;
-  expires: string;
-};
-
-// generic get request
-export const get = async (url: string, options?: Options) => {
-  return await coreFetch(url, options);
-};
-
-// generic post request
-export const post = async (url: string, payload: any, options?: Options) => {
-  return await coreFetch(url, options, "post", payload);
-};
-
-const coreFetch = async (
+const createRequest = async (
   url: string,
-  options?: Options,
-  method: string = "get",
-  body?: any
+  requestType: string,
+  options: Options = {}
 ) => {
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  const init = { headers };
-
-  if (method === "post") {
-    Object.assign(init, { body, method, headers });
+  const additionalOptions: Options = {
+    timeout: 5000,
+    method: requestType,
+    retry: {
+      limit: 2,
+      // statusCodes: []
+    },
+    headers: {
+      ...options.headers,
+    },
+  };
+  try {
+    return ky(url, {
+      ...options,
+      ...additionalOptions,
+    }).json();
+  } catch (err) {
+    // TODO: In order to get response body for an error we need to do `await err.response.json()`. Might be worth setting up a custom error for this if required in multiple places...
+    throw err;
   }
-  return new Promise(async (resolve, reject) => {
-    let response = undefined;
-    if (options) {
-      response = await fetch(url, { headers });
-    } else {
-      response = await fetch(url, init);
-    }
-    if (response.ok) {
-      resolve(response.json());
-    } else {
-      reject(response.status);
-    }
-  });
 };
 
-// Will be used to get the JWT token, which is supposed to be passed to the backend
-// const getAuthToken = (): string => {
-//     let authToken: string | null = localStorage.getItem(AUTH_TOKEN);
-//     return authToken != null ? (JSON.parse(authToken) as AuthToken).value : '';
-// };
+export const get = (url: string, options?: Options) => {
+  return createRequest(url, "GET", options);
+};
+
+export const post = (url: string, options?: Options) => {
+  return createRequest(url, "POST", options);
+};

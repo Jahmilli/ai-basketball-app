@@ -2,17 +2,17 @@ import { AngleOfShot } from "../enums/AngleOfShot";
 import { TypeOfShot } from "../enums/TypeOfShot";
 
 // Having different casing conventions is so much fun! :D
-export interface IUploadedVideo {
+export interface IVideo {
   id: string;
-  user_id: string;
+  userId: string;
   name: string;
   description: string;
-  is_processed: boolean;
-  angle_of_shot: AngleOfShot;
-  type_of_shot: TypeOfShot;
-  storage_uri: string;
+  isProcessed: boolean;
+  angleOfShot: AngleOfShot;
+  typeOfShot: TypeOfShot;
+  storageUri: string;
   feedback: IFeedback | null;
-  uploaded_timestamp: string;
+  createdTimestamp: number;
 }
 
 export interface IFeedback {

@@ -1,120 +1,100 @@
-import React, { FC, useEffect, useState } from "react";
-import styles from "./HomeScreenStyles";
-import { Button, Text, View } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types/types";
-import { getVideos } from "../../logic/functions/uploadVideo";
-import { IUploadedVideo } from "../../interfaces/IUploadedVideo";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { useIsFocused } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { FC, useContext, useEffect, useState } from "react";
+import { View } from "react-native";
+import { TextStyle, TitleStyle } from "../../components/Styled/Styled";
+import { Tabs } from "../../components/Tabs/Tabs";
+import { UploadedVideos } from "../../components/UploadedVideos/UploadedVideos";
+import { AppContext } from "../../context";
+import { getVideos } from "../../logic/functions/video";
+import { RootStackParamList } from "../../types/types";
+import styles from "./HomeScreenStyles";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type HomeScreenProps = {
   navigation: HomeScreenNavigationProp;
 };
+
+enum TabTitles {
+  STATS = "STATS",
+  VIDEOS = "VIDEOS",
+}
+const tabs = [TabTitles.STATS, TabTitles.VIDEOS];
+
+// TODO: Prevent users from being able to press backbutton...
+
 const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
+  const { user } = useContext(AppContext);
   const isFocused = useIsFocused(); // Keeps track of whether we've navigated away from the screen
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const handleNavigate = () => {
-    navigation.navigate("RecordShotSetup");
-  };
+  const [currentTab, setCurrentTab] = useState(tabs[0]);
+  const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
+    if (!user.firebaseUserInfo) {
+      setMounted(false);
+      return navigation.navigate("Login");
+    }
     if (isLoading) {
       return;
     }
+
     const callGetVideos = async () => {
+      if (!user.firebaseUserInfo) return;
+
       try {
         setIsLoading(true);
-        const videos = await getVideos("test");
+        const videos = await getVideos(user.firebaseUserInfo.uid);
+        if (!mounted) return;
+
         setVideos(videos);
       } catch (err) {
         console.log("An error occurred when getting videos", err);
       } finally {
+        if (!mounted) return;
         setIsLoading(false);
       }
     };
     callGetVideos();
-  }, [isFocused]);
+  }, [isFocused, user]);
 
-  const handleNavigateToVideoFeedback = (video: IUploadedVideo) => {
-    navigation.navigate("VideoFeedback", {
-      video,
-    });
+  const renderSelectedContent = (currentTab: TabTitles) => {
+    switch (currentTab) {
+      case TabTitles.STATS:
+        return <TitleStyle>Coming Soon...</TitleStyle>;
+      case TabTitles.VIDEOS:
+        return <UploadedVideos videos={videos} navigation={navigation} />;
+      default:
+        return (
+          <TitleStyle>You shouldn't have been able to get here...</TitleStyle>
+        );
+    }
   };
-
-  const renderItem = ({ item }: { item: IUploadedVideo }) => (
-    <View style={styles.listItem}>
-      <View style={styles.listItemBody}>
-        <View style={styles.listItemTextLockup}>
-          <View style={styles.listItemTitleLockup}>
-            <Text style={styles.title}>{item.name}</Text>
-          </View>
-          <Text>{item.description}</Text>
-          <Text>
-            Uploaded date:{" "}
-            {new Date(item.uploaded_timestamp).toLocaleDateString()}
-          </Text>
-          <Text>
-            Uploaded time:{" "}
-            {new Date(item.uploaded_timestamp).toLocaleTimeString()}
-          </Text>
-          <Text>
-            Processed status: {item.is_processed ? "Complete" : "Pending"}
-          </Text>
-          {item.is_processed ? (
-            <View style={styles.viewFeedbackLockup}>
-              <Button
-                title="View Feedback"
-                onPress={() => handleNavigateToVideoFeedback(item)}
-              />
-            </View>
-          ) : null}
-        </View>
-      </View>
-    </View>
-  );
 
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <View style={styles.noUploadsLockup}>
-          <Text style={styles.getStartedText}>Loading...</Text>
-        </View>
+        <TextStyle fontSize="L">Loading...</TextStyle>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      {videos.length > 0 ? (
-        <>
-          <View style={styles.uploadVideoLockup}>
-            <Text style={styles.uploadVideoText}>Upload another video?</Text>
-            <Button title="Record Shot" onPress={handleNavigate} />
-          </View>
-          <FlatList
-            data={videos}
-            style={styles.list}
-            renderItem={renderItem}
-            keyExtractor={(item: IUploadedVideo) => item.id}
-          />
-        </>
-      ) : (
-        <View style={styles.noUploadsLockup}>
-          <Text style={styles.getStartedText}>
-            Looks like you haven't uploaded videos yet!
-          </Text>
-          <Button title="Get Started!" onPress={handleNavigate} />
-          {/* <TouchableOpacity
-          style={styles.getStartedButton}
-          onPress={handleNavigate}
-        >
-          <Text>Get</Text>
-          </TouchableOpacity> */}
-        </View>
-      )}
+      <Tabs
+        items={tabs}
+        onTabSelect={(key: any) => setCurrentTab(key)}
+        currentSelectedTab={currentTab}
+      />
+      <View
+        style={{
+          width: "100%",
+          height: "90%",
+        }}
+      >
+        {renderSelectedContent(currentTab)}
+      </View>
     </View>
   );
 };

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
 
 const styles = StyleSheet.create({
   container: {
@@ -46,5 +47,32 @@ const styles = StyleSheet.create({
     width: 20,
   },
 });
+
+export const ListItem = styled.TouchableOpacity`
+  height: 150px;
+  width: 100%;
+  margin-top: 10px;
+  background-color: ${(props: any) =>
+    props.isSelected ? props.borderColor : "transparent"};
+  border: ${(props: any) => `2px solid ${props.borderColor ?? "black"}`};
+  border-radius: 10px;
+`;
+
+export const ListItemBody = styled.View`
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const ListItemTextLockup = styled.View`
+  height: 100%;
+  flex: 1;
+  padding: 10px;
+`;
 
 export default styles;

@@ -1,6 +1,6 @@
-import { IRecordShotOption } from "../interfaces/IRecordShotOption";
 import { AngleOfShot } from "../enums/AngleOfShot";
 import { TypeOfShot } from "../enums/TypeOfShot";
+import { IRecordShotOption } from "../interfaces/IRecordShotOption";
 const Icon = require("../../assets/images/right-chevron.png");
 
 export const anglesList: IRecordShotOption[] = [
@@ -17,13 +17,13 @@ export const anglesList: IRecordShotOption[] = [
     description: "The player will be facing towards the camera",
     image: Icon, // TODO: Update with proper image
   },
-  {
-    id: AngleOfShot.FROM_THE_BACK,
-    title: "From the back",
-    description:
-      "The player will be facing away from the camera and the camera",
-    image: Icon, // TODO: Update with proper image
-  },
+  // {
+  //   id: AngleOfShot.FROM_THE_BACK,
+  //   title: "From the back",
+  //   description:
+  //     "The player will be facing away from the camera and the camera",
+  //   image: Icon, // TODO: Update with proper image
+  // },
 ];
 
 // TODO: This should either live in database or live in constants directory

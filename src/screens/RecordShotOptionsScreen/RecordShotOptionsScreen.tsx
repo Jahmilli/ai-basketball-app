@@ -1,11 +1,18 @@
-import React, { FC } from "react";
-import styles from "./RecordShotOptionsScreenStyles";
-import { Button, View, Text, Image } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types/types";
-import { FlatList } from "react-native-gesture-handler";
 import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { FC, useContext, useState } from "react";
+import { Image, Text, View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+import { PrimaryButton } from "../../components/Button/Button";
+import { TextStyle } from "../../components/Styled/Styled";
+import { AppContext } from "../../context";
 import { IRecordShotOption } from "../../interfaces/IRecordShotOption";
+import { RootStackParamList } from "../../types/types";
+import styles, {
+  ListItem,
+  ListItemBody,
+  ListItemTextLockup,
+} from "./RecordShotOptionsScreenStyles";
 
 type SelectAngleScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -26,30 +33,44 @@ const RecordShotOptionsScreen: FC<SelectAngleScreenProps> = ({
   navigation,
   route,
 }) => {
+  const { theme } = useContext(AppContext);
   const { screen, options } = route.params;
-  const handleSelectRecordShotOption = (angle: IRecordShotOption) => {
+  const [selectedOptionId, setSelectedOptionId] = useState(options[0].id);
+
+  const handleSelectRecordShotOption = () => {
     navigation.navigate(screen, {
-      id: angle.id,
+      id: selectedOptionId,
     });
   };
 
-  const renderItem = ({ item }: { item: IRecordShotOption }) => (
-    <View style={styles.listItem}>
-      <View style={styles.listItemBody}>
-        <View style={styles.listItemTextLockup}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text>{item.description}</Text>
-        </View>
-        <View style={styles.listItemIconLockup}>
-          <Image style={styles.listItemIcon} source={item.image} />
-        </View>
-      </View>
-      <Button
-        title="SELECT THIS OPTION"
-        onPress={() => handleSelectRecordShotOption(item)}
-      />
-    </View>
-  );
+  const renderItem = ({ item }: { item: IRecordShotOption }) => {
+    const isSelected = item.id === selectedOptionId;
+    return (
+      <ListItem
+        borderColor={theme.PRIMARY_BUTTON_BACKGROUND_COLOR}
+        isSelected={isSelected}
+        onPress={() => setSelectedOptionId(item.id)}
+      >
+        <ListItemBody>
+          <ListItemTextLockup>
+            <TextStyle
+              color={isSelected ? theme.PRIMARY_BUTTON_COLOR : "black"}
+            >
+              {item.title}
+            </TextStyle>
+            <TextStyle
+              color={isSelected ? theme.PRIMARY_BUTTON_COLOR : "black"}
+            >
+              {item.description}
+            </TextStyle>
+          </ListItemTextLockup>
+          <View style={styles.listItemIconLockup}>
+            <Image style={styles.listItemIcon} source={item.image} />
+          </View>
+        </ListItemBody>
+      </ListItem>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -64,6 +85,9 @@ const RecordShotOptionsScreen: FC<SelectAngleScreenProps> = ({
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
+      <View style={{ width: "100%", marginBottom: 15 }}>
+        <PrimaryButton text="Select" onPress={handleSelectRecordShotOption} />
+      </View>
     </View>
   );
 };
