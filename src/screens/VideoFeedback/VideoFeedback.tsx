@@ -1,10 +1,12 @@
-import React, { FC } from "react";
-import styles from "./VideoFeedbackStyles";
-import { Text, View } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types/types";
-import { IVideo } from "../../interfaces/IVideo";
 import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { FC } from "react";
+import { Button, Text, View } from "react-native";
+import AppConfig from "../../../AppConfig";
+import { parseS3Uri } from "../../../utils/helpers";
+import { IVideo } from "../../interfaces/IVideo";
+import { RootStackParamList } from "../../types/types";
+import styles from "./VideoFeedbackStyles";
 
 type VideoFeedbackScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -83,6 +85,18 @@ const VideoFeedbackScreen: FC<VideoFeedbackScreenProps> = ({
           <Text style={styles.textValue}>
             {video.feedback?.angle || "Missing feedback"}
           </Text>
+        </View>
+        <View style={styles.textLockup}>
+          <Text style={styles.textTitle}>Video Player:</Text>
+          <Button
+            title="View Video"
+            onPress={() =>
+              navigation.navigate("VideoPlayer", {
+                uri: `${AppConfig.s3Hostname}/${parseS3Uri(video.storageUri)}`,
+                // uri: `${AppConfig.s3Hostname}/46f487d3-8128-45aa-81bf-f74afc2f3420.mp4`,
+              })
+            }
+          />
         </View>
       </View>
     </View>

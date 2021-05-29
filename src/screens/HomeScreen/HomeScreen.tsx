@@ -69,7 +69,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
           <Text>
             Processed status: {item.isProcessed ? "Complete" : "Pending"}
           </Text>
-          {item.isProcessed ? (
+          {!item.isProcessed ? (
             <View style={styles.viewFeedbackLockup}>
               <Button
                 title="View Feedback"

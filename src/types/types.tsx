@@ -22,6 +22,9 @@ export type RootStackParamList = {
     typeOfShot: TypeOfShot;
     angleOfShot: AngleOfShot;
   };
+  VideoPlayer: {
+    uri: string;
+  };
   VideoFeedback: {
     video: IVideo;
   };
